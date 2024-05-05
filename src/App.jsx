@@ -1,12 +1,46 @@
-import './App.css'
+import "./App.css";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AppContext } from "./context/AppContext.jsx";
+import Home from "./views/Home/Home.jsx";
+import Register from "./views/Register/Register.jsx";
+import Login from "./views/Login/Login.jsx";
+import Header from "./components/Header/Header.jsx";
 
 function App() {
+  const [appState, setAppState] = useState({
+    user: null,
+    userData: null,
+  });
+
   return (
     <>
-     <img src="/home-diy-logo-w.png" alt="" />
-     <h1>Hello Здравей</h1>
+      <BrowserRouter>
+        <AppContext.Provider
+          /*
+            user: appState.user,
+            userData: appState.userData, 
+
+            is the same as:
+            ...appState,
+          */
+          value={{
+            ...appState,
+            setAppState
+          }}
+        >
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<h1>Not Found</h1>} />
+          </Routes>
+          {/* <Footer /> */}
+        </AppContext.Provider>
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
