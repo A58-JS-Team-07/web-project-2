@@ -8,7 +8,7 @@ import ProfileDropdown from "./Profile/ProfileDropdown.jsx";
 function Header() {
   //TODO: Context for logged and non-logged user
 
-  const { user, setAppState } = useContext(AppContext);
+  const { user, userData } = useContext(AppContext);
 
   const [openProfileDropdown, setOpenProfileDropdown] = useState(false);
 
@@ -30,17 +30,18 @@ function Header() {
       </div>
       <div className="header__login-profile">
         {user ? (
-          <>
+          <div className="header__login-profile--profile">
             <ProfileAvatar
               onClick={() => setOpenProfileDropdown((prev) => !prev)}
             />
+            <span>Hi, {userData?.firstName}</span>
             {openProfileDropdown && <ProfileDropdown />}
-          </>
+          </div>
         ) : (
-          <>
+          <div className="header__login-profile--login">
             <NavLink to="/register">Register</NavLink>
             <NavLink to="/login">Login</NavLink>
-          </>
+          </div>
         )}
       </div>
     </header>
