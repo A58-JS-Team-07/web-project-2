@@ -11,9 +11,10 @@ import Button from "../../components/Button/Button.jsx";
 
 function Register() {
   const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
     username: "",
     email: "",
-    tel: "",
     password: "",
   });
   const { user, setAppState } = useContext(AppContext);
@@ -40,7 +41,13 @@ function Register() {
       }
 
       const credentials = await registerUser(form.email, form.password);
-      await createUserHandle(form.username, credentials.user.uid, form.email, form.tel);
+      await createUserHandle(
+        form.username,
+        credentials.user.uid,
+        form.email,
+        form.firstName,
+        form.lastName
+      );
       setAppState({ user: credentials.user, userData: null });
       navigate("/");
     } catch (error) {
@@ -52,45 +59,63 @@ function Register() {
   return (
     <div className="register">
       <h1>Register</h1>
-      <div className="register__form-group">
-        <label htmlFor="username">Username</label>
-        <input
-          value={form.username}
-          onChange={updateForm("username")}
-          type="text"
-          id="username"
-          name="username"
-        />
+      <div className="register__row">
+        <div className="register__form-group">
+          <label htmlFor="firstName">First name</label>
+          <input
+            value={form.firstName}
+            onChange={updateForm("firstName")}
+            type="text"
+            id="firstName"
+            name="firstName"
+          />
+        </div>
+        <div className="register__form-group">
+          <label htmlFor="lastName">Last name</label>
+          <input
+            value={form.lastName}
+            onChange={updateForm("lastName")}
+            type="text"
+            id="lastName"
+            name="lastName"
+          />
+        </div>
       </div>
-      <div className="register__form-group">
-        <label htmlFor="email">Email</label>
-        <input
-          value={form.email}
-          onChange={updateForm("email")}
-          type="email"
-          id="email"
-          name="email"
-        />
+      <div className="register__row">
+        <div className="register__form-group">
+          <label htmlFor="username">Username</label>
+          <input
+            value={form.username}
+            onChange={updateForm("username")}
+            type="text"
+            id="username"
+            name="username"
+          />
+        </div>
       </div>
-      <div className="register__form-group">
-        <label htmlFor="tel">Phone</label>
-        <input
-          value={form.tel}
-          onChange={updateForm("tel")}
-          type="tel"
-          id="tel"
-          name="tel"
-        />
+      <div className="register__row">
+        <div className="register__form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            value={form.email}
+            onChange={updateForm("email")}
+            type="email"
+            id="email"
+            name="email"
+          />
+        </div>
       </div>
-      <div className="register__form-group">
-        <label htmlFor="password">Password</label>
-        <input
-          value={form.password}
-          onChange={updateForm("password")}
-          type="password"
-          id="password"
-          name="password"
-        />
+      <div className="register__row">
+        <div className="register__form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            value={form.password}
+            onChange={updateForm("password")}
+            type="password"
+            id="password"
+            name="password"
+          />
+        </div>
       </div>
       <Button onClick={register}>Register</Button>
     </div>
