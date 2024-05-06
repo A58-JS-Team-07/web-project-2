@@ -22,6 +22,7 @@ function App() {
     getUserData(appState.user.uid).then((snapshot) => {
       const userData = Object.values(snapshot.val())[0];
       setAppState({ ...appState, userData });
+      console.log(userData.isAdmin);
     });
   }, [appState.user]);
 

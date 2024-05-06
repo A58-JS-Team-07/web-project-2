@@ -4,15 +4,37 @@
   justify-content: space-between;
 }
 
-.header__navigation, .header__login-profile {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
-}
-
 .header a {
   color: #fff;
   text-decoration: none;
-
 }
+
+.header a.active {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.header__navigation, .header__login-profile, .header__login-profile--login {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
+
+.header__navigation a, .header__login-profile--login a{
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.header__login-profile--profile {
+  display: flex;
+  flex-direction: column;
+  gap: 0; 
+  align-items: center;
+}
+
+.header__login-profile--profile span {
+  font-size: 14px;
+}
+
+

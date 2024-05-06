@@ -10,7 +10,7 @@ function ProfileAvatar({ onClick }) {
         src={imgSrc}
         alt="User Avatar"
         className="profile__avatar__image"
-        width="50px"
+        width="40px"
       />
     </div>
   );
