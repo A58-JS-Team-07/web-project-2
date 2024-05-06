@@ -6,6 +6,8 @@ import Home from "./views/Home/Home.jsx";
 import Register from "./views/Register/Register.jsx";
 import Login from "./views/Login/Login.jsx";
 import Header from "./components/Header/Header.jsx";
+import AllPosts from "./views/Posts/AllPosts.jsx";
+import CreatePost from "./views/CreatePost/CreatePost.jsx";
 
 function App() {
   const [appState, setAppState] = useState({
@@ -34,6 +36,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/create-post" element={<CreatePost />} />
+            <Route path="/posts" element={<AllPosts />} />
             <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
           {/* <Footer /> */}
