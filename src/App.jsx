@@ -1,17 +1,29 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppContext } from "./context/AppContext.jsx";
 import Home from "./views/Home/Home.jsx";
 import Register from "./views/Register/Register.jsx";
 import Login from "./views/Login/Login.jsx";
 import Header from "./components/Header/Header.jsx";
+import { getUserData } from "./services/users.service.js";
 
 function App() {
   const [appState, setAppState] = useState({
     user: null,
     userData: null,
   });
+
+  useEffect(() => {
+    if (!appState.user) {
+      return;
+    }
+
+    getUserData(appState.user.uid).then((snapshot) => {
+      const userData = Object.values(snapshot.val())[0];
+      setAppState({ ...appState, userData });
+    });
+  }, [appState.user]);
 
   return (
     <>
@@ -26,7 +38,7 @@ function App() {
           */
           value={{
             ...appState,
-            setAppState
+            setAppState,
           }}
         >
           <Header />
