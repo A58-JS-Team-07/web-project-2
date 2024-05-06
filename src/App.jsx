@@ -5,8 +5,11 @@ import { AppContext } from "./context/AppContext.jsx";
 import Home from "./views/Home/Home.jsx";
 import Register from "./views/Register/Register.jsx";
 import Login from "./views/Login/Login.jsx";
+import ManageUsers from "./views/ManageUsers/ManageUsers.jsx";
 import Header from "./components/Header/Header.jsx";
 import { getUserData } from "./services/users.service.js";
+import Authenticated from "./hoc/Authenticated.jsx";
+import AdminPageProtect from "./hoc/AdminPageProtect.jsx";
 
 function App() {
   const [appState, setAppState] = useState({
@@ -47,6 +50,16 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route
+              path="/manage-users"
+              element={
+                <Authenticated>
+                  <AdminPageProtect>
+                    <ManageUsers />
+                  </AdminPageProtect>
+                </Authenticated>
+              }
+            />
             <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
           {/* <Footer /> */}

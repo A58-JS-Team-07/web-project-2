@@ -3,9 +3,10 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../../../context/AppContext.jsx";
 import { logoutUser } from "../../../services/auth.service.js";
+import DisplayForAdmin from "../../../hoc/DisplayForAdmin.jsx";
 
 function ProfileDropdown() {
-  const { userData, setAppState } = useContext(AppContext);
+  const { setAppState } = useContext(AppContext);
 
   const logout = async () => {
     await logoutUser();
@@ -19,9 +20,9 @@ function ProfileDropdown() {
     <div className="profile__dropdown">
       <ul>
         <li>{<NavLink to="/profile">Profile</NavLink>}</li>
-        {userData?.isAdmin && (
+        {<DisplayForAdmin>
           <li>{<NavLink to="/manage-users">Manage users</NavLink>}</li>
-        )}
+        </DisplayForAdmin>}
         <li onClick={logout}>Logout</li>
       </ul>
     </div>
