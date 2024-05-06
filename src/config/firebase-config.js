@@ -13,7 +13,7 @@ const firebaseConfig = {
   storageBucket: "telerik-project-2.appspot.com",
   messagingSenderId: "266753102156",
   appId: "1:266753102156:web:9789fe78a60389bc077fe9",
-  databaseURL: "https://console.firebase.google.com/u/0/project/telerik-project-2/database/telerik-project-2-default-rtdb/data/~2F"
+  databaseURL: "https://telerik-project-2-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 
 // Initialize Firebase
