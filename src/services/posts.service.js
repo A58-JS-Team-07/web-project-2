@@ -6,10 +6,13 @@ export const addPost = async (title, author, details) => {
         title,
         author,
         details,
-        createdAt: new Date().toISOString(),
+        createdOn: Date.now(),
         likes: 0,
         dislikes: 0,
         comments: 0,
+        // likedBy: {},
+        // dislikedBy: {},
+        // commentsList: {},
     };
 
     const postsRef = await push(ref(db, 'posts'), post);
@@ -32,4 +35,28 @@ export const getAllPosts = async () => {
     });
 
     return posts;
+}
+
+export const likePost = async (postId, handle) => {
+    const updateVal = {};
+
+    updateVal[`posts/${postId}/likedBy/${handle}`] = true;
+};
+
+export const removeLikePost = async (postId, handle) => {
+    const updateVal = {};
+
+    updateVal[`posts/${postId}/likedBy/${handle}`] = null;
+};
+
+export const dislikePost = async (postId, handle) => {
+    const updateVal = {};
+
+    updateVal[`posts/${postId}/dislikedBy/${handle}`] = true;
+}
+
+export const removeDislikePost = async (postId, handle) => {
+    const updateVal = {};
+
+    updateVal[`posts/${postId}/dislikedBy/${handle}`] = null;
 }

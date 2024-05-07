@@ -18,14 +18,14 @@ export default function CreatePost() {
 
     const createPost = async () => {
         if (post.title.length < 16 || post.title.length > 64) {
-            return alert("Post must be between 16 and 64 characters long");
+            return alert("Title must be between 16 and 64 characters long");
         }
 
         if (post.details.length < 32 || post.details.length > 8192) {
             return alert("Post must be between 32 and 8192 characters long");
         }
 
-        await addPost(post.title, post.details, post.author);
+        await addPost(post.title, post.author, post.details);
 
         setPost({
             title: "",
