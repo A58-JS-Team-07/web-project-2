@@ -15,3 +15,11 @@ export const getUserData = (uid) => {
 
   return get(query(ref(db, 'users'), orderByChild('uid'), equalTo(uid)));
 };
+
+export const getAllUsers = () => {
+  return get(ref(db, 'users'));
+};
+
+export const updateUser = (username, data) => {
+  return set(ref(db, `users/${username}`), data); 
+}
