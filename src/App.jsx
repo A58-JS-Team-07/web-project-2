@@ -10,7 +10,7 @@ import Header from "./components/Header/Header.jsx";
 import { getUserData } from "./services/users.service.js";
 import Authenticated from "./hoc/Authenticated.jsx";
 import AdminPageProtect from "./hoc/AdminPageProtect.jsx";
-// import AllPosts from "./views/Posts/AllPosts.jsx";
+import AllPosts from "./views/Posts/AllPosts.jsx";
 import CreatePost from "./views/CreatePost/CreatePost.jsx";
 
 function App() {
@@ -63,7 +63,7 @@ function App() {
               }
             />
             <Route path="/create-post" element={<CreatePost />} />
-            {/* <Route path="/posts" element={<AllPosts />} /> */}
+            <Route path="/posts" element={<AllPosts />} />
             <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
           {/* <Footer /> */}
