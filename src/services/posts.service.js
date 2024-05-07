@@ -37,6 +37,11 @@ export const getAllPosts = async () => {
     return posts;
 }
 
+export const deletePost = async (postId) => {
+    const postRef = ref(db, `posts/${postId}`);
+    await set(postRef, null);
+}
+
 export const likePost = async (postId, handle) => {
     const updateVal = {};
 

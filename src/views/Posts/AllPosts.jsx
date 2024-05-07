@@ -3,6 +3,7 @@ import { getAllPosts } from '../../services/posts.service';
 import SinglePost from './SinglePost';
 import { ref, onChildChanged } from 'firebase/database';
 import { db } from '../../config/firebase-config';
+import { deletePost } from '../../services/posts.service';
 
 export default function AllPosts() {
     const [posts, setPosts] = useState([]);
@@ -28,11 +29,16 @@ export default function AllPosts() {
                 }
                 return post;
             });
-
+            
             setPosts(updatedPosts);
         });
     }, []);
-
+    
+    const handleDeletePost = (postId) => {
+        deletePost(postId);
+        const updatedPosts = posts.filter((post) => post.id !== postId);
+        setPosts(updatedPosts);
+    };
 
     return (
         <div>
@@ -49,7 +55,7 @@ export default function AllPosts() {
                     {posts.map((post) => (
                         
                         console.log(post),
-                        <SinglePost key={post.id} post={post} />))
+                        <SinglePost key={post.id} post={post} onDelete={handleDeletePost} />))
                     }
                 </div>
                 ) : (

@@ -2,7 +2,9 @@ import React from 'react';
 import Button from '../../components/Button/Button';
 import { Link } from 'react-router-dom';
 
-    export default function SinglePost({ post }) {
+    export default function SinglePost({ post, onDelete }) {
+    const deleteCurrPost = () => onDelete(post.id);
+
     return (
         <div className="post">
             <p>by {post.author}, {new Date(post.createdOn).toLocaleDateString(
@@ -18,8 +20,8 @@ import { Link } from 'react-router-dom';
             <div className="post__actions">
                 <Button>Read Post</Button>
                 <Button>Like</Button>
-                <Button>Dislike</Button>
-                <Link>Delete Post</Link>
+                <Button >Dislike</Button>
+                <Link onClick={deleteCurrPost}>Delete Post</Link>
             </div>
         </div>)
 }
