@@ -1,4 +1,8 @@
-import { getAllUsers } from "../../services/users.service.js";
+import {
+  getAllUsers,
+  changeAdminStatus,
+  changeBanStatus
+} from "../../services/users.service.js";
 import Button from "../../components/Button/Button.jsx";
 import ProfileAvatar from "../../components/Header/Profile/ProfileAvatar.jsx";
 import { useEffect, useState } from "react";
@@ -12,12 +16,41 @@ function ManageUsers() {
     });
   }, []);
 
+  function handleMakeAdmin(user) {
+    const currStatus = user.isAdmin;
+    changeAdminStatus(user.username, !currStatus).then(() => {
+      setUsers((prevUsers) => {
+        return prevUsers.map((u) => {
+          if (u.uid === user.uid) {
+            return { ...u, isAdmin: !currStatus };
+          }
+          return u;
+        });
+      });
+    });
+  }
+
+
+  function handleBanUser(user) {
+    const currStatus = user.isBanned;
+    changeBanStatus(user.username, !currStatus).then(() => {
+      setUsers((prevUsers) => {
+        return prevUsers.map((u) => {
+          if (u.uid === user.uid) {
+            return { ...u, isBanned: !currStatus };
+          }
+          return u;
+        });
+      });
+    });
+  }
+
   return (
     <div>
       <h1>Manage Users</h1>
-      {users.map((user, index) => {
+      {users.map((user) => {
         return (
-          <div className="user-card" key={index}>
+          <div className="user-card" key={user.uid}>
             <div className="user-card__info">
               <div className="user-card__info--left">
                 {/*TODO: Add condition for user with avatar*/}
@@ -31,9 +64,16 @@ function ManageUsers() {
               </div>
             </div>
             <div className="user-card__actions">
-              {/*TODO: Add functionality for ban/un-ban & make admin*/}
-              <Button variant="primary">Ban</Button>
-              <Button variant="danger">Make admin</Button>
+              {user.isAdmin ? (
+                <Button onClick={() => handleMakeAdmin(user)} variant="danger">Remove admin</Button>
+              ) : (
+                <Button onClick={() => handleMakeAdmin(user)} variant="primary">Make admin</Button>
+              )}
+              {user.isBanned ? (
+                <Button onClick={() => handleBanUser(user)} variant="danger">Unban</Button>
+              ) : (
+                <Button onClick={() => handleBanUser(user)} variant="primary">Ban</Button>
+              )}
             </div>
           </div>
         );
