@@ -7,8 +7,7 @@ export const addPost = async (title, author, details) => {
         author,
         details,
         createdOn: Date.now(),
-        likes: 0,
-        dislikes: 0,
+        votes: 0,
         comments: 0,
         // likedBy: {},
         // dislikedBy: {},
@@ -42,26 +41,39 @@ export const deletePost = async (postId) => {
     await set(postRef, null);
 }
 
-export const likePost = async (postId, handle) => {
-    const updateVal = {};
+// export const likePost = async (postId, handle) => {
+//     const updateVal = {};
 
-    updateVal[`posts/${postId}/likedBy/${handle}`] = true;
+//     updateVal[`posts/${postId}/likedBy/${handle}`] = true;
+// };
+
+export const upvotePost = async (postId, handle) => {
+    const updateVal = {};
+    const postRef = ref(db, `posts/${postId}`);
+    const postSnapshot = await get(postRef);
+    const post = postSnapshot.val();
+    post.votes += 1;
+
+    update(postRef, post);
+    // updateVal[`posts/${postId}/votes`] += 1;
+    // updateVal[`posts/${postId}/upvotedBy/${handle}`] = true;
 };
 
-export const removeLikePost = async (postId, handle) => {
+export const downvotePost = async (postId, handle) => {
     const updateVal = {};
+    const postRef = ref(db, `posts/${postId}`);
+    const postSnapshot = await get(postRef);
+    const post = postSnapshot.val();
+    post.votes -= 1;
 
-    updateVal[`posts/${postId}/likedBy/${handle}`] = null;
-};
+    update(postRef, post);
 
-export const dislikePost = async (postId, handle) => {
-    const updateVal = {};
-
-    updateVal[`posts/${postId}/dislikedBy/${handle}`] = true;
+    // updateVal[`posts/${postId}/votes`] -= 1;
+    // updateVal[`posts/${postId}/downvotedBy/${handle}`] = true;
 }
 
-export const removeDislikePost = async (postId, handle) => {
-    const updateVal = {};
+// export const removeDislikePost = async (postId, handle) => {
+//     const updateVal = {};
 
-    updateVal[`posts/${postId}/dislikedBy/${handle}`] = null;
-}
+//     updateVal[`posts/${postId}/dislikedBy/${handle}`] = null;
+// }
