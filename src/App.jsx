@@ -9,9 +9,10 @@ import ManageUsers from "./views/ManageUsers/ManageUsers.jsx";
 import Header from "./components/Header/Header.jsx";
 import { getUserData } from "./services/users.service.js";
 import Authenticated from "./hoc/Authenticated.jsx";
-import AdminPageProtect from "./hoc/AdminPageProtect.jsx";
+import AdminPageProtect from "./hoc/AdminProtect/AdminPageProtect.jsx";
 import AllPosts from "./views/Posts/AllPosts.jsx";
 import CreatePost from "./views/CreatePost/CreatePost.jsx";
+import Profile from "./views/Profile/Profile.jsx";
 
 function App() {
   const [appState, setAppState] = useState({
@@ -52,6 +53,14 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route
+              path="/profile"
+              element={
+                <Authenticated>
+                  <Profile />
+                </Authenticated>
+              }
+            />
             <Route
               path="/manage-users"
               element={

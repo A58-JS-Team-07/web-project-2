@@ -21,7 +21,7 @@ export const getAllUsers = () => {
 };
 
 export const updateUser = (username, data) => {
-  return set(ref(db, `users/${username}`), data); 
+  return set(ref(db, `users/${username}`), {...data, updatedOn: Date.now()}); 
 }
 
 export const changeAdminStatus = (username, status) => {
