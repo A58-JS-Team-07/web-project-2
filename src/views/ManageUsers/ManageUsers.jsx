@@ -6,9 +6,12 @@ import {
 import Button from "../../components/Button/Button.jsx";
 import ProfileAvatar from "../../components/Header/Profile/ProfileAvatar.jsx";
 import { useEffect, useState } from "react";
+import { AppContext } from "../../context/AppContext";
+import { useContext } from "react";
 
 function ManageUsers() {
   const [users, setUsers] = useState([]);
+  const { userData } = useContext(AppContext);
 
   useEffect(() => {
     getAllUsers().then((snapshot) => {
@@ -48,7 +51,7 @@ function ManageUsers() {
   return (
     <div>
       <h1>Manage Users</h1>
-      {users.map((user) => {
+      {users.filter((user) => user.uid !== userData.uid).map((user) => {
         return (
           <div className="user-card" key={user.uid}>
             <div className="user-card__info">
