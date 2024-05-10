@@ -7,7 +7,7 @@ export default function AllPosts() {
 
     useEffect(() => {
         getAllPosts().then(setPosts);
-    }, [posts]);
+    }, []); // How to re-render when post is deleted without causing loop?
 
     // useEffect(() => {
     //     return onChildChanged(ref(db, 'posts'), (snapshot) => {
@@ -49,6 +49,7 @@ export default function AllPosts() {
         // <PostContext.Provider value={{ handleDeletePost }}>
             <div>
                 <h1>All Posts</h1>
+                {console.log('rerendering')}
                 <div className="sorting">
                     <label htmlFor="sorting">Sort by:</label>
                     <select name="sorting" id="sorting">
@@ -59,8 +60,6 @@ export default function AllPosts() {
                     {posts.length > 0 ? (
                         <div className="posts">
                             {posts.map((post) => (
-
-                                console.log(post),
                                 <Post key={post.id} post={post} variant={"readPost"}/>))
                             }
                         </div>

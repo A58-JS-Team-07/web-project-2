@@ -10,6 +10,8 @@ import { AppContext } from "../../context/AppContext";
 import { useContext } from "react";
 import { useSearchParams } from "react-router-dom";
 
+//WHY: Why does it re-rendering 3 times?
+
 function ManageUsers() {
   const [users, setUsers] = useState([]);
   const { userData } = useContext(AppContext);
@@ -34,12 +36,6 @@ function ManageUsers() {
       }
     });
   }, [search]);
-
-  // useEffect(() => {
-  //   getAllUsers().then((snapshot) => {
-  //     setUsers(Object.values(snapshot.val()));
-  //   });
-  // }, []);
 
   function handleMakeAdmin(user) {
     const currStatus = user.isAdmin;
@@ -72,6 +68,7 @@ function ManageUsers() {
   return (
     <div>
       <h1>Manage Users</h1>
+      {console.log('re-dendering')}
       <label htmlFor="search">Search</label>
       <input
         value={search}

@@ -4,15 +4,15 @@ import Button from '../Button/Button.jsx';
 import { PostContext } from '../../context/PostContext.jsx';
 import { upvotePost, downvotePost } from '../../services/posts.service.js';
 
-export default function Post({ post, variant }) {
+export default function Post({ post, variant , handleAddComment, addCommentBtnName }) {
     const navigate = useNavigate();
     const { handleDeletePost } = useContext(PostContext);
     const upvoteCurrPost = () => upvotePost(post.id);
     const downvoteCurrPost = () => downvotePost(post.id);
     const deleteCurrPost = () => handleDeletePost(post.id);
 
-    const buttonText = variant === 'readPost' ? 'Read Post' : 'Add Comment';
-
+    //TODO: This should be corrected because Ivo added a prop that 
+    const buttonText = variant === 'readPost' ? 'Read Post' : addCommentBtnName;
 
     return (
         <div className="post">
@@ -28,7 +28,7 @@ export default function Post({ post, variant }) {
             <p>{post.details}</p>
             <div className="post__actions">
                 {variant === 'addComment' ? (
-                    <Button>{buttonText}</Button>
+                    <Button onClick={handleAddComment}>{buttonText}</Button>
                 ) : (
                     <Button onClick={() => navigate(`/posts/${post.id}`)}>Read Post</Button>
                 )}
