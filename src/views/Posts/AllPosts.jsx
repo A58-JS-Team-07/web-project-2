@@ -1,61 +1,52 @@
 import { useEffect, useState } from 'react';
 import { getAllPosts } from '../../services/posts.service';
-import SinglePost from './SinglePost';
-import { ref, onChildChanged } from 'firebase/database';
-import { db } from '../../config/firebase-config';
-import { deletePost, upvotePost, downvotePost } from '../../services/posts.service';
-import { PostContext } from '../../context/PostContext';
+import Post from '../../components/Post/Post.jsx';
 
 export default function AllPosts() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         getAllPosts().then(setPosts);
-    }, []);
+    }, [posts]);
 
-    useEffect(() => {
-        return onChildChanged(ref(db, 'posts'), (snapshot) => {
-            const updatedPost = snapshot.val();
-            const updatedPosts = posts.map((post) => {
-                if (post.id === snapshot.key) {
-                    if (updatedPost.likedBy) {
-                        post.likedBy = Object.keys(updatedPost.likedBy).length;
-                    } else {
-                        post.likedBy = [];
-                    }
-                    return {
-                        ...post,
-                        ...updatedPost,
-                    };
-                } else {
-                    return post;
-                }
-            });
+    // useEffect(() => {
+    //     return onChildChanged(ref(db, 'posts'), (snapshot) => {
+    //         const updatedPost = snapshot.val();
+    //         const updatedPosts = posts.map((post) => {
+    //             if (post.id === snapshot.key) {
+    //                 if (updatedPost.likedBy) {
+    //                     post.likedBy = Object.keys(updatedPost.likedBy).length;
+    //                 } else {
+    //                     post.likedBy = [];
+    //                 }
+    //                 return {
+    //                     ...post,
+    //                     ...updatedPost,
+    //                 };
+    //             } else {
+    //                 return post;
+    //             }
+    //         });
 
-            setPosts(updatedPosts);
-        });
-    }, []);
+    //         setPosts(updatedPosts);
+    //     });
+    // }, []);
 
-    const handleDeletePost = (postId) => {
-        deletePost(postId);
-        const updatedPosts = posts.filter((post) => post.id !== postId);
-        setPosts(updatedPosts);
-    };
 
-    const handleUpvote = (postId) => {
-        upvotePost(postId).then(() => {
-            getAllPosts().then(setPosts);
-        });
-    };
+    // const handleUpvote = (postId) => {
+    //     upvotePost(postId).then(() => {
+    //         getAllPosts().then(setPosts);
+    //     });
+    // };
 
-    const handleDownvote = (postId) => {
-        downvotePost(postId).then(() => {
-            getAllPosts().then(setPosts);
-        });
-    };
+    // const handleDownvote = (postId) => {
+    //     downvotePost(postId).then(() => {
+    //         getAllPosts().then(setPosts);
+    //     });
+    // };
 
     return (
-        <PostContext.Provider value={{ handleDeletePost, handleUpvote, handleDownvote }}>
+        // <PostContext.Provider value={{ handleDeletePost }}>
             <div>
                 <h1>All Posts</h1>
                 <div className="sorting">
@@ -70,7 +61,7 @@ export default function AllPosts() {
                             {posts.map((post) => (
 
                                 console.log(post),
-                                <SinglePost key={post.id} post={post} />))
+                                <Post key={post.id} post={post} variant={"readPost"}/>))
                             }
                         </div>
                     ) : (
@@ -78,6 +69,6 @@ export default function AllPosts() {
                     )}
                 </div>
             </div>
-        </PostContext.Provider>
+        // </PostContext.Provider>
     );
 }

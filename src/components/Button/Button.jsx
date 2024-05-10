@@ -1,6 +1,6 @@
 import "./Button.css";
 
-function Button({ onClick, children }) {
+function Button({ onClick, children, variant }) {
 
   //TODO: Add conditional rendering for different button variants styles
 

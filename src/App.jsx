@@ -12,12 +12,17 @@ import Authenticated from "./hoc/Authenticated.jsx";
 import AdminPageProtect from "./hoc/AdminPageProtect.jsx";
 import AllPosts from "./views/Posts/AllPosts.jsx";
 import CreatePost from "./views/CreatePost/CreatePost.jsx";
+import PostDetailed from "./views/Posts/PostDetailed.jsx";
+import { PostContext } from "./context/PostContext.jsx";
+import { deletePost } from "./services/posts.service.js";
 
 function App() {
   const [appState, setAppState] = useState({
     user: null,
     userData: null,
   });
+
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     if (!appState.user) {
@@ -31,44 +36,53 @@ function App() {
     });
   }, [appState.user]);
 
+  const handleDeletePost = (postId) => {
+    deletePost(postId);
+    const updatedPosts = posts.filter((post) => post.id !== postId);
+    setPosts(updatedPosts);
+};
+
   return (
     <>
-      <BrowserRouter>
-        <AppContext.Provider
-          /*
-            user: appState.user,
-            userData: appState.userData, 
-
-            is the same as:
-            ...appState,
-          */
-          value={{
-            ...appState,
-            setAppState,
-          }}
-        >
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/manage-users"
-              element={
-                <Authenticated>
-                  <AdminPageProtect>
-                    <ManageUsers />
-                  </AdminPageProtect>
-                </Authenticated>
-              }
-            />
-            <Route path="/create-post" element={<CreatePost />} />
-            <Route path="/posts" element={<AllPosts />} />
-            <Route path="*" element={<h1>Not Found</h1>} />
-          </Routes>
-          {/* <Footer /> */}
-        </AppContext.Provider>
-      </BrowserRouter>
+      <PostContext.Provider value={{ handleDeletePost }}>
+        <BrowserRouter>
+          <AppContext.Provider
+            /*
+              user: appState.user,
+              userData: appState.userData, 
+  
+              is the same as:
+              ...appState,
+            */
+            value={{
+              ...appState,
+              setAppState,
+            }}
+          >
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/manage-users"
+                element={
+                  <Authenticated>
+                    <AdminPageProtect>
+                      <ManageUsers />
+                    </AdminPageProtect>
+                  </Authenticated>
+                }
+              />
+              <Route path="/create-post" element={<CreatePost />} />
+              <Route path="/posts" element={<AllPosts />} />
+              <Route path="/posts/:id" element={<PostDetailed />} />
+              <Route path="*" element={<h1>Not Found</h1>} />
+            </Routes>
+            {/* <Footer /> */}
+          </AppContext.Provider>
+        </BrowserRouter>
+      </PostContext.Provider>
     </>
   );
 }

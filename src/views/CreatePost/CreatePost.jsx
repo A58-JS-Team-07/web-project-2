@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { addPost } from "../../services/posts.service.js";
-import  Button  from "../../components/Button/Button";
+import  Button  from "../../components/Button/Button.jsx";
 
 export default function CreatePost() {
     const [post, setPost] = useState({
@@ -31,8 +31,10 @@ export default function CreatePost() {
             title: "",
             details: "",
         });
-    }
 
+        alert("Post created successfully!");
+    }
+    
     return (
         <div>
             <h1>Create Post</h1>
