@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../../../context/AppContext.jsx";
 import { logoutUser } from "../../../services/auth.service.js";
-import DisplayForAdmin from "../../../hoc/DisplayForAdmin.jsx";
+import DisplayForAdmin from "../../../hoc/AdminProtect/DisplayForAdmin.jsx";
 
 function ProfileDropdown() {
   const { setAppState } = useContext(AppContext);

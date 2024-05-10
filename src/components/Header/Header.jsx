@@ -1,16 +1,40 @@
 import "./Header.css";
-import { NavLink } from "react-router-dom";
-import { useState, useContext } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import { useState, useContext, useEffect, useRef } from "react";
 import { AppContext } from "../../context/AppContext";
 import ProfileAvatar from "./Profile/ProfileAvatar.jsx";
 import ProfileDropdown from "./Profile/ProfileDropdown.jsx";
 
 function Header() {
   //TODO: Context for logged and non-logged user
-
   const { user, userData } = useContext(AppContext);
-
   const [openProfileDropdown, setOpenProfileDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    setOpenProfileDropdown(false);
+  }, [location]);
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu, then close the menu
+      if (
+        openProfileDropdown &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target)
+      ) {
+        setOpenProfileDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [openProfileDropdown]);
 
   return (
     <header className="header">
@@ -30,7 +54,7 @@ function Header() {
       </div>
       <div className="header__login-profile">
         {user ? (
-          <div className="header__login-profile--profile">
+          <div className="header__login-profile--profile" ref={dropdownRef}>
             <ProfileAvatar
               onClick={() => setOpenProfileDropdown((prev) => !prev)}
             />
