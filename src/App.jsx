@@ -15,6 +15,7 @@ import CreatePost from "./views/CreatePost/CreatePost.jsx";
 import { PostContext } from "./context/PostContext.jsx";
 import { deletePost } from "./services/posts.service.js";
 import Profile from "./views/Profile/Profile.jsx";
+import PostDetailed from "./views/Posts/PostDetailed.jsx";
 
 function App() {
   const [appState, setAppState] = useState({
@@ -84,6 +85,7 @@ function App() {
               />
               <Route path="/create-post" element={<CreatePost />} />
               <Route path="/posts" element={<AllPosts />} />
+              <Route path="/posts/:id" element={<PostDetailed />} />
               <Route path="*" element={<h1>Not Found</h1>} />
             </Routes>
             {/* <Footer /> */}
