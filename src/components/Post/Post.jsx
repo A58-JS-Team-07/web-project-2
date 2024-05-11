@@ -18,7 +18,7 @@ export default function Post({ post, variant }) {
 
     return (
         <div className="post">
-            <p>by {post.author}, {new Date(post.createdOn).toLocaleDateString(
+            <p>@{post.author}, {new Date(post.createdOn).toLocaleDateString(
                 'en-US',
                 {
                     year: 'numeric',

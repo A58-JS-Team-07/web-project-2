@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { addPost } from "../../services/posts.service.js";
 import  Button  from "../../components/Button/Button.jsx";
+import { AppContext } from "../../context/AppContext.jsx";
+
 
 export default function CreatePost() {
+    const { userData } = useContext(AppContext);
     const [post, setPost] = useState({
         title: "",
         details: "",
-        author: "admin",
+        author: userData.username,
     });
 
     const updatePost = (value, key) => {
