@@ -113,6 +113,7 @@ export const addComment = async (postId, username, commentContent) => {
     const commentObj = {
         username,
         commentContent,
+        postId,
         createdOn: Date.now(),
     };
 
@@ -134,12 +135,10 @@ export const updateComment = async (postId, postCommentKey, commentContent, user
         updatedOn: Date.now(),
     };
 
-    await push(ref(db, `posts/${postId}/comments/${postCommentKey}`), commentObj);
+    await update(ref(db, `posts/${postId}/comments/${postCommentKey}`), commentObj);
     await updateUserComment(username, postCommentKey, commentContent);
 }
 
-
-// TODO: Implement deleteComment function
 export const deleteComment = async (postId, postCommentKey, username) => {
     const postCommentRef = ref(db, `posts/${postId}/comments/${postCommentKey}`);
     await set(postCommentRef, null);

@@ -1,4 +1,4 @@
-import { get, set, push, ref, query, equalTo, orderByChild } from 'firebase/database';
+import { get, set, push, update, ref, query, equalTo, orderByChild } from 'firebase/database';
 import { db } from '../config/firebase-config.js';
 
 export const getUserByHandle = (handle) => {
@@ -48,7 +48,7 @@ export const updateUserComment = async (username, commentKey, commentContent) =>
     updatedOn: Date.now()
   }
 
-  await push(ref(db, `users/${username}/comments/${commentKey}`), commentObj);
+  await update(ref(db, `users/${username}/comments/${commentKey}`), commentObj);
 }
 
 export const deleteUserComment = async (username, commentKey) => {

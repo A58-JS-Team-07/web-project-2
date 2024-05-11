@@ -26,7 +26,7 @@ const AddComment = ({ postId }) => {
         id="comment"
         name="comment"
       />
-      <Button onClick={handleAddComment}>Add Comment</Button>
+      <Button onClick={handleAddComment}>Publish</Button>
     </div>
   );
 };

@@ -1,0 +1,32 @@
+.single-comment {
+  margin: 20px 0;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+
+.quotes {
+  font-size: 100px;
+  line-height: 0;
+  font-style: italic;
+  position: absolute;
+  right: 0;
+  top: 40px;
+  /*How to make the height of the item small*/
+  display: inline-block;
+}
+
+.single-comment__user-info {
+  position: relative;
+}
+
+.delete, .edit {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.single-comment__nav-buttons {
+  display: flex;
+  gap: 10px;
+}

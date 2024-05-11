@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Post from "../../components/Post/Post.jsx";
 import { getPostById } from "../../services/posts.service.js";
 import AddComment from "../../components/Comments/AddComment.jsx";
+import AllComments from "../../components/Comments/AllComments.jsx";
 
 export default function PostDetailed() {
   const { id } = useParams();
@@ -28,6 +29,7 @@ export default function PostDetailed() {
     setIsCommenting(!isCommenting);
   }
 
+  
   return (
     <div>
       <h1>Post Details</h1>
@@ -40,6 +42,7 @@ export default function PostDetailed() {
         />
       )}
       {isCommenting && <AddComment postId={id} />}
+      <AllComments postId={id} />
     </div>
   );
 }

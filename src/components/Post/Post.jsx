@@ -14,6 +14,10 @@ export default function Post({ post, variant , handleAddComment, addCommentBtnNa
     //TODO: This should be corrected because Ivo added a prop that 
     const buttonText = variant === 'readPost' ? 'Read Post' : addCommentBtnName;
 
+    function getCommentsCount() {
+        return post.comments ? Object.keys(post.comments).length : 0;
+    }
+
     return (
         <div className="post">
             <p>by {post.author}, {new Date(post.createdOn).toLocaleDateString(
@@ -23,7 +27,7 @@ export default function Post({ post, variant , handleAddComment, addCommentBtnNa
                     month: 'long',
                     day: 'numeric',
                 }
-            )}</p>
+            )}, comments: {getCommentsCount()}</p>
             <h2>{post.title}</h2>
             <p>{post.details}</p>
             <div className="post__actions">
