@@ -12,7 +12,9 @@ export default function PostDetailed() {
         getPostById(id).then((post)  => setPost(post));
         setPost({
             ...post,
-            id,
+            // id,
+            // upvotedBy: post.upvotedBy || [],	
+            // downvotedBy: post.downvotedBy || [],
         })
 
 

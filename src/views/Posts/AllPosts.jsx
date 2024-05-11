@@ -1,31 +1,29 @@
 import { useEffect, useState } from 'react';
 import { getAllPosts } from '../../services/posts.service';
 import Post from '../../components/Post/Post.jsx';
+import { ref, onChildChanged } from 'firebase/database';
+import { db } from '../../config/firebase-config';
 
 export default function AllPosts() {
     const [posts, setPosts] = useState([]);
 
+    //For the posts to be updated in real time, we need to use the onChildChanged method from the Firebase SDK.
     useEffect(() => {
         getAllPosts().then(setPosts);
-    }, [posts]);
+    }, []);
 
     // useEffect(() => {
     //     return onChildChanged(ref(db, 'posts'), (snapshot) => {
     //         const updatedPost = snapshot.val();
     //         const updatedPosts = posts.map((post) => {
     //             if (post.id === snapshot.key) {
-    //                 if (updatedPost.likedBy) {
-    //                     post.likedBy = Object.keys(updatedPost.likedBy).length;
-    //                 } else {
-    //                     post.likedBy = [];
-    //                 }
     //                 return {
     //                     ...post,
     //                     ...updatedPost,
     //                 };
-    //             } else {
-    //                 return post;
     //             }
+
+    //             return post;
     //         });
 
     //         setPosts(updatedPosts);
