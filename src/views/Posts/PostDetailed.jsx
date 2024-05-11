@@ -23,7 +23,7 @@ export default function PostDetailed() {
     return (
         <div>
             <h1>Post Details</h1>
-            {post && <Post post={post} variant={"addComment"} />}
+            {post && <Post post={post} variant={"postDetailed"} />}
         </div>
     );
 }

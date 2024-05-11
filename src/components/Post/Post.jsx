@@ -29,7 +29,7 @@ export default function Post({ post, variant }) {
             <h2>{post.title}</h2>
             <p>{post.details}</p>
             <div className="post__actions">
-                {variant === 'addComment' ? (
+                {variant === 'postDetailed' ? (
                     <Button>{buttonText}</Button>
                 ) : (
                     <Button onClick={() => navigate(`/posts/${post.id}`)}>Read Post</Button>
@@ -37,6 +37,7 @@ export default function Post({ post, variant }) {
                 <Button onClick={upvoteCurrPost}>Upvote</Button>
                 <span>{post.votes}</span>
                 <Button onClick={downvoteCurrPost}>Downvote</Button>
+                {variant === 'postDetailed' && <Button>Edit</Button>}
                 <Button onClick={() => {
                     deleteCurrPost();
                     navigate(`/posts`);
