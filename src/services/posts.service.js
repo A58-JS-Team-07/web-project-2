@@ -1,5 +1,6 @@
 import { ref, push, get, set, update, query, equalTo, orderByChild, orderByKey } from 'firebase/database';
 import { db } from "../config/firebase-config";
+import { addUserComment, updateUserComment, deleteUserComment } from './users.service.js';
 
 export const addPost = async (title, author, details) => {
     const post = {
@@ -109,4 +110,59 @@ export const downvotePost = async (postId, handle) => {
     }
     
     update(postRef, post);
+}
+
+
+export const getAllPostComments = async (postId) => {
+    const postCommentsRef = ref(db, `posts/${postId}/comments`);
+    const postCommentsSnapshot = await get(postCommentsRef);
+
+    if (!postCommentsSnapshot.exists()) return [];
+
+    const comments = [];
+
+    postCommentsSnapshot.forEach((comment) => {
+        comments.push({
+            id: comment.key,
+            ...comment.val(),
+        });
+    });
+
+    return comments;
+}
+
+export const addComment = async (postId, username, commentContent) => {
+    const commentObj = {
+        username,
+        commentContent,
+        postId,
+        createdOn: Date.now(),
+    };
+
+    const postCommentsRef = ref(db, `posts/${postId}/comments`);
+    await push(postCommentsRef, commentObj);
+
+    //Get last comment key to add as a key to user comments
+    const postCommentsSnapshot = await get(postCommentsRef);
+    const commentKeys = Object.keys(postCommentsSnapshot.val());
+    const commentKey = commentKeys[commentKeys.length - 1];
+    
+    await addUserComment(username, postId, commentContent, commentKey);
+
+}
+
+export const updateComment = async (postId, postCommentKey, commentContent, username ) => {
+    const commentObj = {
+        commentContent,
+        updatedOn: Date.now(),
+    };
+
+    await update(ref(db, `posts/${postId}/comments/${postCommentKey}`), commentObj);
+    await updateUserComment(username, postCommentKey, commentContent);
+}
+
+export const deleteComment = async (postId, postCommentKey, username) => {
+    const postCommentRef = ref(db, `posts/${postId}/comments/${postCommentKey}`);
+    await set(postCommentRef, null);
+    await deleteUserComment(username, postCommentKey);
 }

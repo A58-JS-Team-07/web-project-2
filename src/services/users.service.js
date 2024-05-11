@@ -1,4 +1,4 @@
-import { get, set, ref, query, equalTo, orderByChild } from 'firebase/database';
+import { get, set, push, update, ref, query, equalTo, orderByChild } from 'firebase/database';
 import { db } from '../config/firebase-config.js';
 
 export const getUserByHandle = (handle) => {
@@ -30,4 +30,28 @@ export const changeAdminStatus = (username, status) => {
 
 export const changeBanStatus = (username, status) => {
   return set(ref(db, `users/${username}/isBanned`), status);
+}
+
+export const addUserComment = async (username, postId, commentContent, commentKey) => {
+  const commentObj = {
+    postId,
+    commentContent,
+    createdOn: Date.now()
+  }
+
+  await set(ref(db, `users/${username}/comments/${commentKey}`), commentObj);
+}
+
+export const updateUserComment = async (username, commentKey, commentContent) => {
+  const commentObj = {
+    commentContent,
+    updatedOn: Date.now()
+  }
+
+  await update(ref(db, `users/${username}/comments/${commentKey}`), commentObj);
+}
+
+export const deleteUserComment = async (username, commentKey) => {
+  const commentRef = ref(db, `users/${username}/comments/${commentKey}`);
+  await set(commentRef, null);
 }
