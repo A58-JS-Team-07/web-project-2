@@ -1,16 +1,33 @@
 import { useEffect, useState } from 'react';
 import { getAllPosts } from '../../services/posts.service';
 import Post from '../../components/Post/Post.jsx';
-import { ref, onChildChanged } from 'firebase/database';
-import { db } from '../../config/firebase-config';
 
 export default function AllPosts() {
     const [posts, setPosts] = useState([]);
+    const [sorting, setSorting] = useState('recent');
+
+    //1. useState for 3 sorting options
+    //2. functions for sorting by likes, comments, and date
+    //3. condition in return - if useState is sth render it
 
     //For the posts to be updated in real time, we need to use the onChildChanged method from the Firebase SDK.
     useEffect(() => {
-        getAllPosts().then(setPosts);
+        getAllPosts()
+        .then((posts) => posts.reverse())
+        .then(setPosts);
     }, []);
+
+    const handleSort = (e) => {
+        setSorting(e.target.value);
+        console.log(e.target.value);
+        if (e.target.value === 'liked') {
+            setPosts(posts.sort((a, b) => b.votes - a.votes));
+        } else if (e.target.value === 'commented') {
+            setPosts(posts.sort((a, b) => b.comments.length - a.comments.length));
+        } else {
+            setPosts(posts.sort((a, b) => b.createdOn - a.createdOn));
+        }
+    }
 
     // useEffect(() => {
     //     return onChildChanged(ref(db, 'posts'), (snapshot) => {
@@ -31,42 +48,28 @@ export default function AllPosts() {
     // }, []);
 
 
-    // const handleUpvote = (postId) => {
-    //     upvotePost(postId).then(() => {
-    //         getAllPosts().then(setPosts);
-    //     });
-    // };
-
-    // const handleDownvote = (postId) => {
-    //     downvotePost(postId).then(() => {
-    //         getAllPosts().then(setPosts);
-    //     });
-    // };
-
     return (
-        // <PostContext.Provider value={{ handleDeletePost }}>
-            <div>
-                <h1>All Posts</h1>
-                <div className="sorting">
-                    <label htmlFor="sorting">Sort by:</label>
-                    <select name="sorting" id="sorting">
-                        <option value="liked">Most liked</option>
-                        <option value="recent">Most recent </option>
-                        <option value="commented">Most commented</option>
-                    </select>
-                    {posts.length > 0 ? (
-                        <div className="posts">
-                            {posts.map((post) => (
+        <div>
+            <h1>All Posts</h1>
+            <div className="sorting">
+                <label htmlFor="sorting">Sort by:</label>
+                <select name="sorting" id="sorting" onChange={handleSort}>
+                    <option value="recent">Most recent </option>
+                    <option value="liked">Most liked</option>
+                    <option value="commented">Most commented</option>
+                </select>
+                {posts.length > 0 ? (
+                    <div className="posts">
+                        {posts.map((post) => (
 
-                                console.log(post),
-                                <Post key={post.id} post={post} variant={"readPost"}/>))
-                            }
-                        </div>
-                    ) : (
-                        <p>No posts found</p>
-                    )}
-                </div>
+                            console.log(post),
+                            <Post key={post.id} post={post} variant={"readPost"} />))
+                        }
+                    </div>
+                ) : (
+                    <p>No posts found</p>
+                )}
             </div>
-        // </PostContext.Provider>
+        </div>
     );
 }
