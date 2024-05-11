@@ -4,7 +4,7 @@ import Post from '../../components/Post/Post.jsx';
 
 export default function AllPosts() {
     const [posts, setPosts] = useState([]);
-    const [sorting, setSorting] = useState('recent');
+    const [sorting, setSorting] = useState('most');
 
     //1. useState for 3 sorting options
     //2. functions for sorting by likes, comments, and date
