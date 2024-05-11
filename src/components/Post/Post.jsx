@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '../Button/Button.jsx';
 import { PostContext } from '../../context/PostContext.jsx';
 import { upvotePost, downvotePost } from '../../services/posts.service.js';

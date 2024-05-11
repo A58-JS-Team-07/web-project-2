@@ -1,6 +1,5 @@
 import { ref, push, get, set, update, query, equalTo, orderByChild, orderByKey } from 'firebase/database';
 import { db } from "../config/firebase-config";
-import { useNavigate } from 'react-router-dom';
 
 export const addPost = async (title, author, details) => {
     const post = {
@@ -10,14 +9,10 @@ export const addPost = async (title, author, details) => {
         createdOn: Date.now(),
         votes: 0,
         comments: 0,
-        // upvotedBy: {},
-        // downvotebBy: {},
-        // commentsList: {},
     };
 
     const postsRef = await push(ref(db, 'posts'), post);
-    // await push(postsRef, post);
-    // console.log(postsRef);
+
     const postId = postsRef.key;
     update(postsRef, { id: postId });
 }
@@ -84,13 +79,14 @@ export const upvotePost = async (postId, handle) => {
     if (!postSnapshot.exists()) throw new Error('Post with this id does not exist!');
 
     if (post.upvotedBy && post.upvotedBy[handle] === true) {
-        return;   
+        post.votes -= 1;
+        post.upvotedBy[handle] = null;
+    } else {
+        post.downvotedBy ? post.votes += 2 : post.votes += 1;
+        post.upvotedBy = post.upvotedBy || {};
+        post.upvotedBy[handle] = true;
+        post.downvotedBy ? post.downvotedBy[handle] = null : null;
     }
-
-    post.votes += 1;
-    post.upvotedBy = post.upvotedBy || {};
-    post.upvotedBy[handle] = true;
-    post.downvotedBy ? post.downvotedBy[handle] = null : null;
 
     update(postRef, post);
 };
@@ -103,13 +99,14 @@ export const downvotePost = async (postId, handle) => {
     if (!postSnapshot.exists()) throw new Error('Post with this id does not exist!');
 
     if (post.downvotedBy && post.downvotedBy[handle] === true) {
-        return;
+        post.votes += 1;
+        post.downvotedBy[handle] = null;
+    } else {
+        post.upvotedBy ? post.votes -= 2 : post.votes -= 1;
+        post.downvotedBy = post.downvotedBy || {};
+        post.downvotedBy[handle] = true;
+        post.upvotedBy ? post.upvotedBy[handle] = null : null;
     }
     
-    post.votes -= 1;
-    post.downvotedBy = post.downvotedBy || {};
-    post.downvotedBy[handle] = true;
-    post.upvotedBy ? post.upvotedBy[handle] = null : null;
-
     update(postRef, post);
 }
