@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '../Button/Button.jsx';
 import { PostContext } from '../../context/PostContext.jsx';
 import { upvotePost, downvotePost } from '../../services/posts.service.js';
+import { AppContext } from '../../context/AppContext.jsx';
 
 export default function Post({ post, variant , handleAddComment, addCommentBtnName }) {
     const navigate = useNavigate();
+    const { user } = useContext(AppContext);
     const { handleDeletePost } = useContext(PostContext);
-    const upvoteCurrPost = () => upvotePost(post.id);
-    const downvoteCurrPost = () => downvotePost(post.id);
+    const upvoteCurrPost = () => upvotePost(post.id, user.uid);
+    const downvoteCurrPost = () => downvotePost(post.id, user.uid);
     const deleteCurrPost = () => handleDeletePost(post.id);
 
     //TODO: This should be corrected because Ivo added a prop that 
@@ -20,7 +22,7 @@ export default function Post({ post, variant , handleAddComment, addCommentBtnNa
 
     return (
         <div className="post">
-            <p>by {post.author}, {new Date(post.createdOn).toLocaleDateString(
+            <p>@{post.author}, {new Date(post.createdOn).toLocaleDateString(
                 'en-US',
                 {
                     year: 'numeric',
@@ -37,11 +39,10 @@ export default function Post({ post, variant , handleAddComment, addCommentBtnNa
                     <Button onClick={() => navigate(`/posts/${post.id}`)}>Read Post</Button>
                 )}
                 <Button onClick={upvoteCurrPost}>Upvote</Button>
+                <span>{post.votes}</span>
                 <Button onClick={downvoteCurrPost}>Downvote</Button>
-                {/* <Link onClick={ deleteCurrPost}>Delete Post</Link> */}
                 <Button onClick={() => {
                     deleteCurrPost();
-                    
                     navigate(`/posts`);
                 }
                 }>Delete Post</Button>

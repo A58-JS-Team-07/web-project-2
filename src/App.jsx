@@ -45,21 +45,21 @@ function App() {
 
   return (
     <>
-      <PostContext.Provider value={{ handleDeletePost }}>
-        <BrowserRouter>
-          <AppContext.Provider
-            /*
-              user: appState.user,
-              userData: appState.userData, 
-  
-              is the same as:
-              ...appState,
-            */
-            value={{
-              ...appState,
-              setAppState,
-            }}
-          >
+      <BrowserRouter>
+        <AppContext.Provider
+          /*
+          user: appState.user,
+          userData: appState.userData, 
+          
+          is the same as:
+          ...appState,
+          */
+          value={{
+            ...appState,
+            setAppState,
+          }}
+        >
+          <PostContext.Provider value={{ handleDeletePost }}>
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -83,15 +83,29 @@ function App() {
                   </Authenticated>
                 }
               />
-              <Route path="/create-post" element={<CreatePost />} />
-              <Route path="/posts" element={<AllPosts />} />
+              <Route
+                path="/create-post"
+                element={
+                  <Authenticated>
+                    <CreatePost />
+                  </Authenticated>
+                }
+              />
+              <Route
+                path="/posts"
+                element={
+                  <Authenticated>
+                    <AllPosts />
+                  </Authenticated>
+                }
+              />
               <Route path="/posts/:id" element={<PostDetailed />} />
               <Route path="*" element={<h1>Not Found</h1>} />
             </Routes>
             {/* <Footer /> */}
-          </AppContext.Provider>
-        </BrowserRouter>
-      </PostContext.Provider>
+          </PostContext.Provider>
+        </AppContext.Provider>
+      </BrowserRouter>
     </>
   );
 }

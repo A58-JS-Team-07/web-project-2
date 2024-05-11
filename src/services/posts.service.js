@@ -11,17 +11,27 @@ export const addPost = async (title, author, details) => {
         createdOn: Date.now(),
         votes: 0,
         comments: 0,
-        // likedBy: {},
-        // dislikedBy: {},
-        // commentsList: {},
     };
 
     const postsRef = await push(ref(db, 'posts'), post);
 
-    // await push(postsRef, post);
-    console.log(postsRef);
+    const postId = postsRef.key;
+    update(postsRef, { id: postId });
 }
 
+export const updatePost = async (postId, title, author, details) => {
+    const postRef = ref(db, `posts/${postId}`);
+    const postSnapshot = await get(postRef);
+
+    if (!postSnapshot.exists()) throw new Error('Post with this id does not exist!');
+
+    const post = postSnapshot.val();
+    post.title = title;
+    post.author = author;
+    post.details = details;
+
+    await set(postRef, post);
+}
 
 export const getAllPosts = async () => {
     const postsRef = ref(db, 'posts');
@@ -32,8 +42,10 @@ export const getAllPosts = async () => {
 
     postsSnapshot.forEach((post) => {
         posts.push({
-            id: post.key,
             ...post.val(),
+            id: post.key,
+            upvotedBy: post.val().upvotedBy || [],
+            downvotedBy: post.val().downvotedBy || [],
         });
     });
 
@@ -49,6 +61,8 @@ export const getPostById = async (postId) => {
     return {
         ...postSnapshot.val(),
         id: postId,
+        upvotedBy: postSnapshot.val().upvotedBy || [],
+        downvotedBy: postSnapshot.val().downvotedBy || [],
     };
 
 }
@@ -60,34 +74,98 @@ export const deletePost = async (postId) => {
 }
 
 export const upvotePost = async (postId, handle) => {
-    const updateVal = {};
     const postRef = ref(db, `posts/${postId}`);
     const postSnapshot = await get(postRef);
     const post = postSnapshot.val();
 
-    console.log(post);
     if (!postSnapshot.exists()) throw new Error('Post with this id does not exist!');
 
-    post.votes += 1;
+    if (post.upvotedBy && post.upvotedBy[handle] === true) {
+        post.votes -= 1;
+        post.upvotedBy[handle] = null;
+    } else {
+        post.downvotedBy ? post.votes += 2 : post.votes += 1;
+        post.upvotedBy = post.upvotedBy || {};
+        post.upvotedBy[handle] = true;
+        post.downvotedBy ? post.downvotedBy[handle] = null : null;
+    }
 
     update(postRef, post);
-    // post.upvotedBy = post.upvotedBy || {};
-    // post.upvotedBy[handle] = true;
 };
 
 export const downvotePost = async (postId, handle) => {
-    const updateVal = {};
     const postRef = ref(db, `posts/${postId}`);
     const postSnapshot = await get(postRef);
-
-    // if (!postSnapshot.exists()) throw new Error('Post with this id does not exist!');
     const post = postSnapshot.val();
-    post.votes -= 1;
 
+    if (!postSnapshot.exists()) throw new Error('Post with this id does not exist!');
+
+    if (post.downvotedBy && post.downvotedBy[handle] === true) {
+        post.votes += 1;
+        post.downvotedBy[handle] = null;
+    } else {
+        post.upvotedBy ? post.votes -= 2 : post.votes -= 1;
+        post.downvotedBy = post.downvotedBy || {};
+        post.downvotedBy[handle] = true;
+        post.upvotedBy ? post.upvotedBy[handle] = null : null;
+    }
+    
     update(postRef, post);
+}
 
-    // post.downvotedBy = post.downvotedBy || {};
-    // post.downvotedBy[handle] = true;
+
+export const getAllPostComments = async (postId) => {
+    const postCommentsRef = ref(db, `posts/${postId}/comments`);
+    const postCommentsSnapshot = await get(postCommentsRef);
+
+    if (!postCommentsSnapshot.exists()) return [];
+
+    const comments = [];
+
+    postCommentsSnapshot.forEach((comment) => {
+        comments.push({
+            id: comment.key,
+            ...comment.val(),
+        });
+    });
+
+    return comments;
+}
+
+export const addComment = async (postId, username, commentContent) => {
+    const commentObj = {
+        username,
+        commentContent,
+        postId,
+        createdOn: Date.now(),
+    };
+
+    const postCommentsRef = ref(db, `posts/${postId}/comments`);
+    await push(postCommentsRef, commentObj);
+
+    //Get last comment key to add as a key to user comments
+    const postCommentsSnapshot = await get(postCommentsRef);
+    const commentKeys = Object.keys(postCommentsSnapshot.val());
+    const commentKey = commentKeys[commentKeys.length - 1];
+    
+    await addUserComment(username, postId, commentContent, commentKey);
+
+}
+
+export const updateComment = async (postId, postCommentKey, commentContent, username ) => {
+    const commentObj = {
+        commentContent,
+        updatedOn: Date.now(),
+    };
+
+    await update(ref(db, `posts/${postId}/comments/${postCommentKey}`), commentObj);
+    await updateUserComment(username, postCommentKey, commentContent);
+}
+
+export const deleteComment = async (postId, postCommentKey, username) => {
+    const postCommentRef = ref(db, `posts/${postId}/comments/${postCommentKey}`);
+    await set(postCommentRef, null);
+    await deleteUserComment(username, postCommentKey);
 }
 
 
