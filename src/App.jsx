@@ -37,8 +37,8 @@ function App() {
     });
   }, [appState.user]);
 
-  const handleDeletePost = (postId) => {
-    deletePost(postId);
+  const handleDeletePost = (postId, username) => {
+    deletePost(postId, username);
     const updatedPosts = posts.filter((post) => post.id !== postId);
     setPosts(updatedPosts);
   };

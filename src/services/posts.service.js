@@ -1,6 +1,6 @@
 import { ref, push, get, set, update, query, equalTo, orderByChild, orderByKey } from 'firebase/database';
 import { db } from "../config/firebase-config";
-import { addUserComment, updateUserComment, deleteUserComment } from './users.service.js';
+import { addUserComment, updateUserComment, deleteUserComment, addUserPost } from './users.service.js';
 
 export const addPost = async (title, author, details) => {
     const post = {
@@ -16,6 +16,8 @@ export const addPost = async (title, author, details) => {
 
     const postId = postsRef.key;
     update(postsRef, { id: postId });
+
+    await addUserPost(postId, title, author, details);
 }
 
 export const updatePost = async (postId, title, details) => {
@@ -70,10 +72,13 @@ export const getPostById = async (postId) => {
 
 }
 
-export const deletePost = async (postId) => {
+export const deletePost = async (postId, username) => {
 
     const postRef = ref(db, `posts/${postId}`);
+    const userPostRef = ref(db, `users/${username}/posts/${postId}`);
     await set(postRef, null);
+
+    await set(userPostRef, null);
 }
 
 export const upvotePost = async (postId, handle) => {

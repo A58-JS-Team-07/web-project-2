@@ -32,6 +32,17 @@ export const changeBanStatus = (username, status) => {
   return set(ref(db, `users/${username}/isBanned`), status);
 }
 
+export const addUserPost = async (postId, title, username, details) => {
+  const postObj = {
+    postId,
+    title,
+    details,
+    createdOn: Date.now()
+  }
+
+  await set(ref(db, `users/${username}/posts/${postId}`), postObj);
+}
+
 export const addUserComment = async (username, postId, commentContent, commentKey) => {
   const commentObj = {
     postId,

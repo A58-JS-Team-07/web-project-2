@@ -7,14 +7,14 @@ import { AppContext } from '../../context/AppContext.jsx';
 
 export default function Post({ post, variant, handleAddComment, addCommentBtnName }) {
     const navigate = useNavigate();
-    const { user } = useContext(AppContext);
+    const { user, userData } = useContext(AppContext);
     const { handleDeletePost } = useContext(PostContext);
     const [isEditing, setIsEditing] = useState(false);
     const [updatedPost, setUpdatedPost] = useState({ ...post });
 
     const upvoteCurrPost = () => upvotePost(post.id, user.uid);
     const downvoteCurrPost = () => downvotePost(post.id, user.uid);
-    const deleteCurrPost = () => handleDeletePost(post.id);
+    const deleteCurrPost = () => handleDeletePost(post.id, userData.username);
 
     //TODO: This should be corrected because Ivo added a prop that 
     const buttonText = variant === 'readPost' ? 'Read Post' : addCommentBtnName;
