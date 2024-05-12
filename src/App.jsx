@@ -99,7 +99,9 @@ function App() {
                   </Authenticated>
                 }
               />
-              <Route path="/posts/:id" element={<PostDetailed />} />
+              
+                <Route path="/posts/:id" element={<Authenticated><PostDetailed /></Authenticated>} />
+              
               <Route path="*" element={<h1>Not Found</h1>} />
             </Routes>
             {/* <Footer /> */}

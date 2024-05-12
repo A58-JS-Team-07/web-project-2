@@ -84,7 +84,7 @@ export const deletePost = async (postId, author) => {
             deleteUserComment(comment.val().username, comment.key);
         });
     }
-
+    
     await set(postRef, null);
     await set(userPostRef, null);
 }

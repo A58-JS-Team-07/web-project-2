@@ -77,20 +77,17 @@ function SingleComment({ comment }) {
           <div>
             <p>{comment.commentContent}</p>
             <div className="single-comment__nav-buttons">
-              {/**Add condition for users to be able to edit only their personal comments */}
-              {/**Add condition for admins to be able to delete all comments */}
-              {/**Add condition for users to be able to delete only their personal comments */}
-              {userData.username === comment.username && (
+              {userData?.username === comment?.username && (
                 <span className="edit" onClick={handleEdit}>
                   Edit
                 </span>
               )}
-              {userData.isAdmin ? (
+              {userData?.isAdmin ? (
                 <span className="delete" onClick={handleDeleteAsAdmin}>
                   Delete
                 </span>
               ) : (
-                userData.username === comment.username && (
+                userData?.username === comment?.username && (
                   <span className="delete" onClick={handleDeleteAsUser}>
                     Delete
                   </span>
