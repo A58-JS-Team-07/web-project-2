@@ -37,6 +37,7 @@ export default function Post({ post, variant , handleAddComment, addCommentBtnNa
                 <Button onClick={upvoteCurrPost}>Upvote</Button>
                 <span>{post.votes}</span>
                 <Button onClick={downvoteCurrPost}>Downvote</Button>
+                {variant === 'postDetailed' && <Button>Edit</Button>}
                 <Button onClick={() => {
                     deleteCurrPost();
                     navigate(`/posts`);
