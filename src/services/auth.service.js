@@ -6,7 +6,11 @@ import {
 import { auth } from "../config/firebase-config.js";
 
 export const registerUser = (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+  try {
+    return createUserWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const loginUser = (email, password) => {

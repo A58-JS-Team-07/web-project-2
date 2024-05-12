@@ -39,6 +39,15 @@ function Register() {
         alert("Username already exists");
         return;
       }
+      if (!form.email || !form.password || !form.username, !form.firstName, !form.lastName) {
+        alert("Please fill in all fields");
+        return;
+      }
+      
+      if (form.firstName.length < 4 || form.firstName.length > 32 || form.lastName.length < 4 || form.lastName.length > 32) {
+        alert("First and last name must be between 4 and 32 characters");
+        return;
+      }
 
       const credentials = await registerUser(form.email, form.password);
       await createUserHandle(
@@ -52,7 +61,13 @@ function Register() {
       navigate("/");
     } catch (error) {
       //TODO: Handle error
-      console.error(error);
+      if (error.code === "auth/email-already-in-use") {
+        alert("Email already in use");
+        return;
+      } else {
+        alert("An error occurred");
+        console.error(error);
+      }
     }
   };
 
