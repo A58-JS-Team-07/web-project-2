@@ -23,7 +23,7 @@ export default function AllPosts() {
         if (e.target.value === 'liked') {
             setPosts(posts.sort((a, b) => b.votes - a.votes));
         } else if (e.target.value === 'commented') {
-            setPosts(posts.sort((a, b) => b.comments.length - a.comments.length));
+            setPosts(posts.sort((a, b) => b.commentsCount - a.commentsCount));
         } else {
             setPosts(posts.sort((a, b) => b.createdOn - a.createdOn));
         }
