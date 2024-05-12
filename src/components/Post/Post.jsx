@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button.jsx";
 import { PostContext } from "../../context/PostContext.jsx";
@@ -10,6 +10,7 @@ import {
 import { AppContext } from "../../context/AppContext.jsx";
 import { deletePost } from "../../services/posts.service.js";
 import DisplayForAdmin from "../../hoc/AdminProtect/DisplayForAdmin.jsx";
+import HideForBanUser from "../../hoc/BanProtect/HideForBanUser.jsx";
 
 export default function Post({
   post,
@@ -110,17 +111,17 @@ export default function Post({
           <p>{post?.details}</p>
           <div className="post__actions">
             {variant === "addComment" ? (
-              <Button onClick={handleAddComment}>{buttonText}</Button>
+              <HideForBanUser><Button onClick={handleAddComment}>{buttonText}</Button></HideForBanUser>
             ) : (
               <Button onClick={() => navigate(`/posts/${post?.id}`)}>
                 Read Post
               </Button>
             )}
-            <Button onClick={upvoteCurrPost}>Upvote</Button>
+            <HideForBanUser><Button onClick={upvoteCurrPost}>Upvote</Button></HideForBanUser>
             <span>{post?.votes}</span>
-            <Button onClick={downvoteCurrPost}>Downvote</Button>
+            <HideForBanUser><Button onClick={downvoteCurrPost}>Downvote</Button></HideForBanUser>
             {variant === "addComment" && userData?.username === post?.author && (
-              <Button onClick={() => setIsEditing(true)}>Edit</Button>
+               <HideForBanUser><Button onClick={() => setIsEditing(true)}>Edit</Button></HideForBanUser>
             )}
 
             {userData?.isAdmin && (
@@ -129,7 +130,7 @@ export default function Post({
               </DisplayForAdmin>
             )}
             {userData?.username === post?.author && (
-              <Button onClick={handleDeleteButton}>Delete</Button>
+              <HideForBanUser><Button onClick={handleDeleteButton}>Delete</Button></HideForBanUser>
             )}
           </div>
         </div>

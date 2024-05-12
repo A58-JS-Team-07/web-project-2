@@ -37,38 +37,46 @@ function Header() {
   }, [openProfileDropdown]);
 
   return (
-    <header className="header">
-      <div className="header__logo">
-        <img
-          src="/home-diy-logo-w.png"
-          alt="Home DIY Logo"
-          className="header__logo__image"
-          width="400px"
-        />
-      </div>
-      <div className="header__navigation">
-        {/*TODO: Context for logged and non-logged user*/}
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/posts">All Posts</NavLink>
-        <NavLink to="/create-post">Create Post</NavLink>
-      </div>
-      <div className="header__login-profile">
-        {user ? (
-          <div className="header__login-profile--profile" ref={dropdownRef}>
-            <ProfileAvatar
-              onClick={() => setOpenProfileDropdown((prev) => !prev)}
-            />
-            <span>Hi, {userData?.firstName}</span>
-            {openProfileDropdown && <ProfileDropdown />}
-          </div>
-        ) : (
-          <div className="header__login-profile--login">
-            <NavLink to="/register">Register</NavLink>
-            <NavLink to="/login">Login</NavLink>
-          </div>
-        )}
-      </div>
-    </header>
+    <>
+      {userData?.isBanned && (
+        <div className="top-header">
+          You are banned. You can only see posts but you cannot interact with
+          them.
+        </div>
+      )}
+      <header className="header">
+        <div className="header__logo">
+          <img
+            src="/home-diy-logo-w.png"
+            alt="Home DIY Logo"
+            className="header__logo__image"
+            width="400px"
+          />
+        </div>
+        <div className="header__navigation">
+          {/*TODO: Context for logged and non-logged user*/}
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/posts">All Posts</NavLink>
+          <NavLink to="/create-post">Create Post</NavLink>
+        </div>
+        <div className="header__login-profile">
+          {user ? (
+            <div className="header__login-profile--profile" ref={dropdownRef}>
+              <ProfileAvatar
+                onClick={() => setOpenProfileDropdown((prev) => !prev)}
+              />
+              <span>Hi, {userData?.firstName}</span>
+              {openProfileDropdown && <ProfileDropdown />}
+            </div>
+          ) : (
+            <div className="header__login-profile--login">
+              <NavLink to="/register">Register</NavLink>
+              <NavLink to="/login">Login</NavLink>
+            </div>
+          )}
+        </div>
+      </header>
+    </>
   );
 }
 

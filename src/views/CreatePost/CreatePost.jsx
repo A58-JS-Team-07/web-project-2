@@ -39,6 +39,7 @@ export default function CreatePost() {
     }
     
     return (
+        userData?.isBanned ? <h1>You are banned and cannot create posts</h1> :
         <div>
             <h1>Create Post</h1>
             <br />

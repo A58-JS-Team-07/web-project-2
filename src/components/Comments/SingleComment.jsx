@@ -2,10 +2,8 @@ import "./SingleComment.css";
 import { useState, useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import Button from "../Button/Button";
-import {
-  updateComment,
-  deleteComment,
-} from "../../services/posts.service";
+import { updateComment, deleteComment } from "../../services/posts.service";
+import HideForBanUser from "../../hoc/BanProtect/HideForBanUser";
 
 function SingleComment({ comment }) {
   const { userData } = useContext(AppContext);
@@ -78,9 +76,11 @@ function SingleComment({ comment }) {
             <p>{comment.commentContent}</p>
             <div className="single-comment__nav-buttons">
               {userData?.username === comment?.username && (
-                <span className="edit" onClick={handleEdit}>
-                  Edit
-                </span>
+                <HideForBanUser>
+                  <span className="edit" onClick={handleEdit}>
+                    Edit
+                  </span>
+                </HideForBanUser>
               )}
               {userData?.isAdmin ? (
                 <span className="delete" onClick={handleDeleteAsAdmin}>
@@ -88,9 +88,11 @@ function SingleComment({ comment }) {
                 </span>
               ) : (
                 userData?.username === comment?.username && (
-                  <span className="delete" onClick={handleDeleteAsUser}>
-                    Delete
-                  </span>
+                  <HideForBanUser>
+                    <span className="delete" onClick={handleDeleteAsUser}>
+                      Delete
+                    </span>
+                  </HideForBanUser>
                 )
               )}
             </div>

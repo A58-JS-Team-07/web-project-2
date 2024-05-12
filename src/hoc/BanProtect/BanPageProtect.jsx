@@ -8,7 +8,7 @@ import { AppContext } from "../../context/AppContext";
  * @param {{children: any }} props
  * @returns
  */
-export default function AdminPageProtect({ children }) {
+export default function BanPageProtect({ children }) {
   const { userData } = useContext(AppContext);
 
   if (userData?.isAdmin) {
@@ -18,6 +18,6 @@ export default function AdminPageProtect({ children }) {
   }
 }
 
-AdminPageProtect.propTypes = {
+BanPageProtect.propTypes = {
   children: PropTypes.any.isRequired,
 };

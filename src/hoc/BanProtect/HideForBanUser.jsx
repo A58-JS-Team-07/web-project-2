@@ -1,7 +1,7 @@
 import { AppContext } from "../../context/AppContext";
 import { useContext } from "react";
 
-export default function DisplayForAdmin({ children }) {
+export default function HideForBanUser({ children }) {
 
   const { userData } = useContext(AppContext);
 
