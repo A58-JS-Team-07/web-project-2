@@ -18,18 +18,22 @@ export const addPost = async (title, author, details) => {
     update(postsRef, { id: postId });
 }
 
-export const updatePost = async (postId, title, author, details) => {
+export const updatePost = async (postId, title, details) => {
     const postRef = ref(db, `posts/${postId}`);
     const postSnapshot = await get(postRef);
 
     if (!postSnapshot.exists()) throw new Error('Post with this id does not exist!');
 
     const post = postSnapshot.val();
-    post.title = title;
-    post.author = author;
-    post.details = details;
+    if (title !== undefined) post.title = title;
+    if (details !== undefined) post.details = details;
 
-    await set(postRef, post);
+    const postUpdatedOn = {
+        ...post,
+        updatedOn: Date.now(),
+    }
+
+    await update(postRef, postUpdatedOn);
 }
 
 export const getAllPosts = async () => {
