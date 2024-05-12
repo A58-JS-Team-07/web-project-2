@@ -9,7 +9,7 @@ export const addPost = async (title, author, details) => {
         details,
         createdOn: Date.now(),
         votes: 0,
-        comments: 0,
+        commentsCount: 0,
     };
 
     const postsRef = await push(ref(db, 'posts'), post);
@@ -143,6 +143,14 @@ export const addComment = async (postId, username, commentContent) => {
         createdOn: Date.now(),
     };
 
+    const commentsCount = await get(ref(db, `posts/${postId}/commentsCount`));
+
+    if (commentsCount.exists()) {
+        await set(ref(db, `posts/${postId}/commentsCount`), commentsCount.val() + 1);
+    } else {
+        await set(ref(db, `posts/${postId}/commentsCount`), 1);
+    }
+
     const postCommentsRef = ref(db, `posts/${postId}/comments`);
     await push(postCommentsRef, commentObj);
 
@@ -167,6 +175,15 @@ export const updateComment = async (postId, postCommentKey, commentContent, user
 
 export const deleteComment = async (postId, postCommentKey, username) => {
     const postCommentRef = ref(db, `posts/${postId}/comments/${postCommentKey}`);
+
+    const commentsCount = await get(ref(db, `posts/${postId}/commentsCount`));
+
+    if (commentsCount.exists()) {
+        await set(ref(db, `posts/${postId}/commentsCount`), commentsCount.val() - 1);
+    } else {
+        await set(ref(db, `posts/${postId}/commentsCount`), 0);
+    }
+
     await set(postCommentRef, null);
     await deleteUserComment(username, postCommentKey);
 }

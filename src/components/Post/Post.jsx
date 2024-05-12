@@ -84,7 +84,7 @@ export default function Post({ post, variant, handleAddComment, addCommentBtnNam
                             month: 'long',
                             day: 'numeric',
                         }
-                    )}, comments: {getCommentsCount()}</p>
+                    )}, comments: {post.commentsCount ? post.commentsCount : 0}</p>
                     <h2>{post.title}</h2>
                     <p>{post.details}</p>
                     <div className="post__actions">
