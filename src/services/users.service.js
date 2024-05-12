@@ -20,6 +20,17 @@ export const getAllUsers = () => {
   return get(ref(db, 'users'));
 };
 
+export const getAllUsersArray = async () => {
+  const userSnapshot = await get(ref(db, 'users'));
+  const users = [];
+  
+  userSnapshot.forEach((user) => {
+    users.push(user.val());
+  });
+
+  return users;
+}
+
 export const updateUser = (username, data) => {
   return set(ref(db, `users/${username}`), {...data, updatedOn: Date.now()}); 
 }

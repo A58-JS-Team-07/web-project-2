@@ -61,8 +61,6 @@ export default function AllPosts() {
                 {posts.length > 0 ? (
                     <div className="posts">
                         {posts.map((post) => (
-
-                            console.log(post),
                             <Post key={post.id} post={post} variant={"readPost"} />))
                         }
                     </div>
