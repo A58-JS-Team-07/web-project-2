@@ -72,12 +72,20 @@ export const getPostById = async (postId) => {
 
 }
 
-export const deletePost = async (postId, username) => {
+export const deletePost = async (postId, author) => {
 
     const postRef = ref(db, `posts/${postId}`);
-    const userPostRef = ref(db, `users/${username}/posts/${postId}`);
-    await set(postRef, null);
+    const userPostRef = ref(db, `users/${author}/posts/${postId}`);
 
+    const postCommentsSnapshot = await get(ref(db, `posts/${postId}/comments`));
+
+    if (postCommentsSnapshot.exists()) {
+        postCommentsSnapshot.forEach((comment) => {
+            deleteUserComment(comment.val().username, comment.key);
+        });
+    }
+
+    await set(postRef, null);
     await set(userPostRef, null);
 }
 
@@ -120,7 +128,6 @@ export const downvotePost = async (postId, handle) => {
     
     update(postRef, post);
 }
-
 
 export const getAllPostComments = async (postId) => {
     const postCommentsRef = ref(db, `posts/${postId}/comments`);

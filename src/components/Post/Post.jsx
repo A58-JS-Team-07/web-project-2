@@ -4,6 +4,7 @@ import Button from '../Button/Button.jsx';
 import { PostContext } from '../../context/PostContext.jsx';
 import { upvotePost, downvotePost, updatePost } from '../../services/posts.service.js';
 import { AppContext } from '../../context/AppContext.jsx';
+import { deletePost } from '../../services/posts.service.js';
 
 export default function Post({ post, variant, handleAddComment, addCommentBtnName }) {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function Post({ post, variant, handleAddComment, addCommentBtnNam
 
     const upvoteCurrPost = () => upvotePost(post.id, user.uid);
     const downvoteCurrPost = () => downvotePost(post.id, user.uid);
-    const deleteCurrPost = () => handleDeletePost(post.id, userData.username);
+    const deleteCurrPost = () => deletePost(post.id, post.author);
 
     //TODO: This should be corrected because Ivo added a prop that 
     const buttonText = variant === 'readPost' ? 'Read Post' : addCommentBtnName;
