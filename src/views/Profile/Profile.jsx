@@ -23,6 +23,12 @@ function Profile() {
 
   const saveChanges = async () => {
     await updateUser(userData.username, newUserData);
+
+    if (newUserData.firstName.length < 4 || newUserData.firstName.length > 32 || newUserData.lastName.length < 4 || newUserData.lastName.length > 32) {
+      alert("First and last name must be between 4 and 32 characters");
+      return;    
+    }
+
     setIsEditing(false);
     setAppState((prevState) => ({ ...prevState, userData: newUserData }));
   };
