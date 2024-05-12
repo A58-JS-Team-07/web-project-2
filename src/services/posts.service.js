@@ -9,7 +9,7 @@ export const addPost = async (title, author, details) => {
         details,
         createdOn: Date.now(),
         votes: 0,
-        comments: 0,
+        commentsCount: 0,
     };
 
     const postsRef = await push(ref(db, 'posts'), post);
