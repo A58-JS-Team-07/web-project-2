@@ -19,6 +19,7 @@ export default function Post({
   handleAddComment,
   addCommentBtnName,
   setFollowClick,
+  page
 }) {
   const navigate = useNavigate();
   const { user, userData } = useContext(AppContext);
@@ -82,6 +83,14 @@ export default function Post({
     });
   };
 
+  const handleDetailsLength = (postDetail) => {
+    if (page !== 'detailedPage' && postDetail?.length > 100) {
+      return postDetail.slice(0, 100) + "[...]";
+    } else {
+      return postDetail;
+    }
+  }
+
   function getCommentsCount() {
     return post.comments ? Object.keys(post.comments).length : 0;
   }
@@ -124,7 +133,7 @@ export default function Post({
             | 💬 {post?.commentsCount ? post?.commentsCount : 0}
           </p>
           <h2 className="post__title">{post?.title}</h2>
-          <p className="post__description">{post?.details}</p>
+          <p className="post__description">{handleDetailsLength(post?.details)}</p>
           <div className="post__actions">
             <div className="post__actions__left">
               {variant === "addComment" ? (

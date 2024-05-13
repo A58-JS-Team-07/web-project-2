@@ -45,7 +45,7 @@ export default function PostDetailed() {
     <div>
       <h1>Post Details</h1>
       {post && (
-        <Post
+        <Post page='detailedPage'
           post={post}
           variant={"addComment"}
           addCommentBtnName={commentBtnName}
