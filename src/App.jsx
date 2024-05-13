@@ -14,12 +14,22 @@ import AllPosts from "./views/Posts/AllPosts.jsx";
 import CreatePost from "./views/CreatePost/CreatePost.jsx";
 import Profile from "./views/Profile/Profile.jsx";
 import PostDetailed from "./views/Posts/PostDetailed.jsx";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./config/firebase-config.js";
 
 function App() {
   const [appState, setAppState] = useState({
     user: null,
     userData: null,
   });
+
+  const [posts, setPosts] = useState([]);
+
+  const [user, loading, error] = useAuthState(auth);
+
+  if (appState.user !== user) {
+    setAppState({ ...appState, user });
+  }
 
   useEffect(() => {
     if (!appState.user) {
@@ -29,7 +39,6 @@ function App() {
     getUserData(appState.user.uid).then((snapshot) => {
       const userData = Object.values(snapshot.val())[0];
       setAppState({ ...appState, userData });
-      console.log(userData.isAdmin);
     });
   }, [appState.user]);
 
