@@ -87,7 +87,7 @@ export default function AllPosts({ page }) {
 
     return (
         <div>
-            <h1>All Posts</h1>
+            {page !== 'home' && <h1>All Posts</h1>}
             {console.log('post rerender')}
             <div className="sorting">
                 <label htmlFor="sorting">Sort by:</label>
