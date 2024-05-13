@@ -50,7 +50,7 @@ function Header() {
             src="/home-diy-logo-w.png"
             alt="Home DIY Logo"
             className="header__logo__image"
-            width="400px"
+            width="320px"
           />
         </div>
         <div className="header__navigation">

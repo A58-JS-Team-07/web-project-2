@@ -2,16 +2,27 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: var(--bg-ldark);
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 10px;
 }
 
-.header a {
+.header__navigation a, .header__login-profile a{
   color: #fff;
   text-decoration: none;
+  background-color: var(--bg-eldark);
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: 0.2s ease-in;
 }
 
-.header a.active {
-  text-decoration: underline;
-  text-underline-offset: 5px;
+.header__navigation a.active, .header__login-profile a.active {
+  background-color: var(--accent);
+}
+
+.header__navigation .header a:hover {
+  background-color: var(--main);
 }
 
 .header__navigation, .header__login-profile, .header__login-profile--login {
@@ -35,7 +46,20 @@
 
 .header__login-profile--profile span {
   font-size: 14px;
+  background: none;
 }
+
+.profile__dropdown a {
+  padding: 0;
+  background: none;
+}
+
+.profile__dropdown a.active {
+  background-color: #fff00000;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 
 
 .top-header {

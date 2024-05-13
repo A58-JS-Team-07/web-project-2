@@ -2,8 +2,19 @@
   font-family: "Raleway", sans-serif;
 }
 
+/* Make color templates */
+:root {
+  --bg-dark: #1e252b;
+  --bg-ldark: #262d35;
+  --bg-eldark: #2c353e;
+  --white: #fff;
+  --accent: #2d398b;
+  --main: #03a4e6;
+
+}
+
 body {
-  background-color: #212121;
+  background-color: var(--bg-dark);
   color: #fff;
   display: flex;
   flex-direction: column;
