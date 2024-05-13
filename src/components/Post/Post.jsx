@@ -102,6 +102,8 @@ export default function Post({
               year: "numeric",
               month: "long",
               day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
             })}
             , comments: {post?.commentsCount ? post?.commentsCount : 0}
           </p>
