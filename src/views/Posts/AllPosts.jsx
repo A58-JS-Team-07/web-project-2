@@ -6,10 +6,6 @@ export default function AllPosts() {
     const [posts, setPosts] = useState([]);
     const [sorting, setSorting] = useState('most');
 
-    //1. useState for 3 sorting options
-    //2. functions for sorting by likes, comments, and date
-    //3. condition in return - if useState is sth render it
-
     //For the posts to be updated in real time, we need to use the onChildChanged method from the Firebase SDK.
     useEffect(() => {
         getAllPosts()
@@ -20,9 +16,9 @@ export default function AllPosts() {
     const handleSort = (e) => {
         setSorting(e.target.value);
         console.log(e.target.value);
-        if (e.target.value === 'liked') {
+        if (sorting === 'liked') {
             setPosts(posts.sort((a, b) => b.votes - a.votes));
-        } else if (e.target.value === 'commented') {
+        } else if (sorting === 'commented') {
             setPosts(posts.sort((a, b) => b.commentsCount - a.commentsCount));
         } else {
             setPosts(posts.sort((a, b) => b.createdOn - a.createdOn));
