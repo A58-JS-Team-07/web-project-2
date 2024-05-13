@@ -1,0 +1,35 @@
+/* Make the input element with class .create-post__title__input wider */
+.create-post__title__input {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    background-color: var(--bg-eldark);
+    color: #fff;
+}
+
+/* Make the textarea element with class .create-post__description wider */
+/* How to make backroubnd color of the textarea element with class .create-post__description darker */
+.create-post__description textarea{
+    resize: both;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    height: 200px;
+    background-color: var(--bg-eldark);
+    color: #fff;
+
+}
+
+
+
+.create-post__title__input:focus {
+    outline: none;
+}
+
+.create-post__description textarea:focus {
+    outline: none;
+}

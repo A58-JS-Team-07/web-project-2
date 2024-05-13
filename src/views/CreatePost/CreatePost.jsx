@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { addPost } from "../../services/posts.service.js";
 import  Button  from "../../components/Button/Button.jsx";
 import { AppContext } from "../../context/AppContext.jsx";
+import "./CreatePost.css";
 
 
 export default function CreatePost() {
@@ -40,23 +41,24 @@ export default function CreatePost() {
     
     return (
         userData?.isBanned ? <h1>You are banned and cannot create posts</h1> :
-        <div>
+        <div className="create-post">
             <h1>Create Post</h1>
             <br />
-            <div>
+            <div className="create-post__title">
                 <label htmlFor="title">Post title</label>
                 <br />
-                <input type="text"
+                <input className="create-post__title__input"
+                    type="text"
                     value={post.title}
                     onChange={(e) => updatePost(e.target.value, "title")}
                     placeholder="Post title"
                 />
             </div>
             <br /><br />
-            <div>
+            <div className="create-post__description">
                 <label htmlFor="details">Post description</label>
                 <br />
-                <textarea
+                <textarea className="create-post__description__input"
                     value={post.details}
                     onChange={(e) => updatePost(e.target.value, "details")}
                     placeholder="Write your post here..."
