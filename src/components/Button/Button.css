@@ -1,5 +1,5 @@
 .button {
-  background-color: #03a4e6;
+  background-color: var(--main);
   color: white;
   padding: 15px 32px;
   text-align: center;
@@ -10,5 +10,5 @@
 }
 
 .button:hover {
-  background-color: #2d398b;
+  background-color: var(--accent);
 }

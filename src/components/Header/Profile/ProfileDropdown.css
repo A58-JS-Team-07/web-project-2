@@ -1,8 +1,8 @@
 .profile__dropdown {
   position: absolute;
   top: 80px;
-  border: 1px solid #e5e5e5;
-  background-color: #333333;
+  border: 1px solid var(--white);
+  background-color: var(--bg-ldark);
   border-radius: 5px;
   padding: 15px 20px;
 }
@@ -15,9 +15,9 @@
   width: 20px;
   height: 20px;
   transform: rotate(45deg);
-  background-color: #333333;
-  border-left: 1px solid #e5e5e5;
-  border-top: 1px solid #e5e5e5;
+  background-color: var(--bg-ldark);
+  border-left: 1px solid var(--white);
+  border-top: 1px solid var(--white);
   }
 
 .profile__dropdown ul {

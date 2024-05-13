@@ -16,6 +16,7 @@ import Profile from "./views/Profile/Profile.jsx";
 import PostDetailed from "./views/Posts/PostDetailed.jsx";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./config/firebase-config.js";
+import Footer from "./components/Footer/Footer.jsx";
 
 function App() {
   const [appState, setAppState] = useState({
@@ -109,7 +110,7 @@ function App() {
 
             <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
-          {/* <Footer /> */}
+          <Footer />
         </AppContext.Provider>
       </BrowserRouter>
     </>
