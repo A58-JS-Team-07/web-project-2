@@ -100,10 +100,10 @@ export const upvotePost = async (postId, handle) => {
         post.votes -= 1;
         post.upvotedBy[handle] = null;
     } else {
-        post.downvotedBy ? post.votes += 2 : post.votes += 1;
+        post.downvotedBy?.[handle] ? post.votes += 2 : post.votes += 1;
         post.upvotedBy = post.upvotedBy || {};
         post.upvotedBy[handle] = true;
-        post.downvotedBy ? post.downvotedBy[handle] = null : null;
+        post.downvotedBy?.[handle] ? post.downvotedBy[handle] = null : null;
     }
 
     update(postRef, post);
@@ -120,10 +120,10 @@ export const downvotePost = async (postId, handle) => {
         post.votes += 1;
         post.downvotedBy[handle] = null;
     } else {
-        post.upvotedBy ? post.votes -= 2 : post.votes -= 1;
+        post.upvotedBy?.[handle] ? post.votes -= 2 : post.votes -= 1;
         post.downvotedBy = post.downvotedBy || {};
         post.downvotedBy[handle] = true;
-        post.upvotedBy ? post.upvotedBy[handle] = null : null;
+        post.upvotedBy?.[handle] ? post.upvotedBy[handle] = null : null;
     }
     
     update(postRef, post);
