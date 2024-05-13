@@ -16,14 +16,21 @@ export default function Post({
   variant,
   handleAddComment,
   addCommentBtnName,
+  setFollowClick,
 }) {
   const navigate = useNavigate();
   const { user, userData } = useContext(AppContext);
   const [isEditing, setIsEditing] = useState(false);
   const [updatedPost, setUpdatedPost] = useState({ ...post });
 
-  const upvoteCurrPost = () => upvotePost(post?.id, user?.uid);
-  const downvoteCurrPost = () => downvotePost(post?.id, user?.uid);
+  const upvoteCurrPost = () => {
+    upvotePost(post?.id, user?.uid);
+    setFollowClick((prev) => !prev);
+  };
+  const downvoteCurrPost = () => {
+    downvotePost(post?.id, user?.uid);
+    setFollowClick((prev) => !prev);
+  };
   const deleteCurrPost = () => deletePost(post?.id, post?.author);
 
   //TODO: This should be corrected because Ivo added a prop that
@@ -45,6 +52,7 @@ export default function Post({
 
     setIsEditing(false);
     await updatePost(updatedPost.id, updatedPost.title, updatedPost.details);
+    setFollowClick((prev) => !prev);
   };
 
   const handleEditCancel = () => {
@@ -138,7 +146,7 @@ export default function Post({
                 <Button onClick={handleDeleteButton}>Delete</Button>
               </DisplayForAdmin>
             )}
-            {userData?.username === post?.author && !userData?.isAdmin &&(
+            {userData?.username === post?.author && !userData?.isAdmin && (
               <HideForBanUser>
                 <Button onClick={handleDeleteButton}>Delete</Button>
               </HideForBanUser>

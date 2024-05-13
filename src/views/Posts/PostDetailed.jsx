@@ -50,6 +50,7 @@ export default function PostDetailed() {
           variant={"addComment"}
           addCommentBtnName={commentBtnName}
           handleAddComment={handleAddCommentFunc}
+          setFollowClick={setFollowClick}
         />
       )}
       {isCommenting && <AddComment postId={id} setFollowClick={setFollowClick}/>}
