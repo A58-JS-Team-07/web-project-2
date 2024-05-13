@@ -1,0 +1,41 @@
+.home__about {
+  background-color: var(--bg-ldark);
+  padding: 20px 200px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.home__about h2 {
+  font-size: 32px;
+}
+.home__about p {
+  font-size: 18px;
+  line-height: 1.5em;
+}
+
+.home__usp {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  justify-content: center;
+  align-items: stretch;
+  margin-top: 20px;
+  background-color: var(--bg-ldark);
+  padding: 30px 20px;
+  border-radius: 10px;
+}
+
+.home__usp__item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  background-color: var(--bg-eldark);
+  padding: 15px 20px;
+  border-radius: 10px;
+}
+
+.usp__item__title  {
+  font-size: 20px;
+  font-weight: 600;
+}
