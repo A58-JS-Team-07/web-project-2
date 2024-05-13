@@ -3,7 +3,7 @@ import { addComment } from "../../services/posts.service";
 import { AppContext } from "../../context/AppContext";
 import Button  from "../Button/Button.jsx"
 
-const AddComment = ({ postId }) => {
+const AddComment = ({ postId, setFollowClick}) => {
   const { userData } = useContext(AppContext);
   const [comment, setComment] = useState(""); // State to hold the comment
 
@@ -14,6 +14,7 @@ const AddComment = ({ postId }) => {
   const handleAddComment = async () => {
     await addComment(postId, userData.username, comment);
     setComment("");
+    setFollowClick((prev) => !prev);
   };
 
   return (

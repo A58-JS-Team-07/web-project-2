@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getAllPosts } from '../../services/posts.service';
 import Post from '../../components/Post/Post.jsx';
+import { ref, onChildChanged, onChildRemoved } from 'firebase/database';
+import { db } from "../../config/firebase-config.js";
 
 export default function AllPosts() {
     const [posts, setPosts] = useState([]);
@@ -12,6 +14,41 @@ export default function AllPosts() {
         .then((posts) => posts.reverse())
         .then(setPosts);
     }, []);
+
+    useEffect(() => {
+        const unsubscribe = onChildChanged(ref(db, 'posts'), (snapshot) => {
+          const value = snapshot.val();
+          setPosts((posts) =>
+            posts.map((p) => {
+              if (p.author === value.author && p.details === value.details) {
+                return {
+                  ...p,
+                  ...value,
+                };
+              } else {
+                return p;
+              }
+            })
+          );
+        });
+      
+        // Cleanup function
+        return () => unsubscribe();
+      }, []);
+
+      useEffect(() => {
+        const unsubscribe = onChildRemoved(ref(db, 'posts'), (snapshot) => {
+          const value = snapshot.val();
+          setPosts((posts) =>
+            posts.filter((p) => !(p.author === value.author && p.details === value.details))
+          );
+        });
+      
+        // Cleanup function
+        return () => unsubscribe();
+      }, []);
+      
+
 
     const handleSort = (e) => {
         setSorting(e.target.value);

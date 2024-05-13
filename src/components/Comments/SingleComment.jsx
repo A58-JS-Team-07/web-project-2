@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 import { updateComment, deleteComment } from "../../services/posts.service";
 import HideForBanUser from "../../hoc/BanProtect/HideForBanUser";
 
-function SingleComment({ comment }) {
+function SingleComment({ comment, setFollowClick }) {
   const { userData } = useContext(AppContext);
   const [isEditing, setIsEditing] = useState(false);
   const [newCommentContent, setNewCommentContent] = useState(
@@ -33,14 +33,13 @@ function SingleComment({ comment }) {
       newCommentContent,
       comment.username
     );
+    setFollowClick((prev) => !prev);
   };
 
-  const handleDeleteAsUser = () => {
-    deleteComment(comment.postId, comment.id, comment.username);
-  };
-
-  const handleDeleteAsAdmin = () => {
-    deleteComment(comment.postId, comment.id, comment.username);
+  const handleDelete = async () => {
+    await deleteComment(comment.postId, comment.id, comment.username);
+    setFollowClick((prev) => !prev);
+    console.log("Delete comment");
   };
 
   return (
@@ -83,13 +82,13 @@ function SingleComment({ comment }) {
                 </HideForBanUser>
               )}
               {userData?.isAdmin ? (
-                <span className="delete" onClick={handleDeleteAsAdmin}>
+                <span className="delete" onClick={() => handleDelete()}>
                   Delete
                 </span>
               ) : (
                 userData?.username === comment?.username && (
                   <HideForBanUser>
-                    <span className="delete" onClick={handleDeleteAsUser}>
+                    <span className="delete" onClick={() => handleDelete()}>
                       Delete
                     </span>
                   </HideForBanUser>

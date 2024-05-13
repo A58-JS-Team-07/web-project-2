@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button.jsx";
-import { PostContext } from "../../context/PostContext.jsx";
 import {
   upvotePost,
   downvotePost,
@@ -53,9 +52,9 @@ export default function Post({
     setUpdatedPost(post);
   };
 
-  const handleDeleteButton = () => {
+  const handleDeleteButton = async () => {
     if (window.confirm("Are you sure you want to delete this post?")) {
-      deleteCurrPost();
+      await deleteCurrPost();
       navigate(`/posts`);
     }
   };
@@ -110,26 +109,37 @@ export default function Post({
           <p>{post?.details}</p>
           <div className="post__actions">
             {variant === "addComment" ? (
-              <HideForBanUser><Button onClick={handleAddComment}>{buttonText}</Button></HideForBanUser>
+              <HideForBanUser>
+                <Button onClick={handleAddComment}>{buttonText}</Button>
+              </HideForBanUser>
             ) : (
               <Button onClick={() => navigate(`/posts/${post?.id}`)}>
                 Read Post
               </Button>
             )}
-            <HideForBanUser><Button onClick={upvoteCurrPost}>Upvote</Button></HideForBanUser>
+            <HideForBanUser>
+              <Button onClick={upvoteCurrPost}>Upvote</Button>
+            </HideForBanUser>
             <span>{post?.votes}</span>
-            <HideForBanUser><Button onClick={downvoteCurrPost}>Downvote</Button></HideForBanUser>
-            {variant === "addComment" && userData?.username === post?.author && (
-               <HideForBanUser><Button onClick={() => setIsEditing(true)}>Edit</Button></HideForBanUser>
-            )}
+            <HideForBanUser>
+              <Button onClick={downvoteCurrPost}>Downvote</Button>
+            </HideForBanUser>
+            {variant === "addComment" &&
+              userData?.username === post?.author && (
+                <HideForBanUser>
+                  <Button onClick={() => setIsEditing(true)}>Edit</Button>
+                </HideForBanUser>
+              )}
 
             {userData?.isAdmin && (
               <DisplayForAdmin>
-                <Button onClick={() => handleDeleteButton}>Delete</Button>
+                <Button onClick={handleDeleteButton}>Delete</Button>
               </DisplayForAdmin>
             )}
-            {userData?.username === post?.author && (
-              <HideForBanUser><Button onClick={handleDeleteButton}>Delete</Button></HideForBanUser>
+            {userData?.username === post?.author && !userData?.isAdmin &&(
+              <HideForBanUser>
+                <Button onClick={handleDeleteButton}>Delete</Button>
+              </HideForBanUser>
             )}
           </div>
         </div>
