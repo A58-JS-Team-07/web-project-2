@@ -19,7 +19,6 @@ export default function AllPosts() {
 
     const handleSort = (e) => {
         setSorting(e.target.value);
-        console.log(e.target.value);
         if (e.target.value === 'liked') {
             setPosts(posts.sort((a, b) => b.votes - a.votes));
         } else if (e.target.value === 'commented') {
@@ -51,6 +50,7 @@ export default function AllPosts() {
     return (
         <div>
             <h1>All Posts</h1>
+            {console.log('post rerender')}
             <div className="sorting">
                 <label htmlFor="sorting">Sort by:</label>
                 <select name="sorting" id="sorting" onChange={handleSort}>
