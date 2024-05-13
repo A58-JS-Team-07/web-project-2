@@ -38,3 +38,11 @@
 }
 
 
+.top-header {
+  background-color: darkred;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 5px 0;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
