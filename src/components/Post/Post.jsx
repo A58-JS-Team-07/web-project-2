@@ -20,7 +20,6 @@ export default function Post({
 }) {
   const navigate = useNavigate();
   const { user, userData } = useContext(AppContext);
-  const { handleDeletePost } = useContext(PostContext);
   const [isEditing, setIsEditing] = useState(false);
   const [updatedPost, setUpdatedPost] = useState({ ...post });
 
