@@ -12,8 +12,6 @@ import Authenticated from "./hoc/Authenticated.jsx";
 import AdminPageProtect from "./hoc/AdminProtect/AdminPageProtect.jsx";
 import AllPosts from "./views/Posts/AllPosts.jsx";
 import CreatePost from "./views/CreatePost/CreatePost.jsx";
-import { PostContext } from "./context/PostContext.jsx";
-import { deletePost } from "./services/posts.service.js";
 import Profile from "./views/Profile/Profile.jsx";
 import PostDetailed from "./views/Posts/PostDetailed.jsx";
 
@@ -22,8 +20,6 @@ function App() {
     user: null,
     userData: null,
   });
-
-  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     if (!appState.user) {
@@ -36,12 +32,6 @@ function App() {
       console.log(userData.isAdmin);
     });
   }, [appState.user]);
-
-  const handleDeletePost = (postId, username) => {
-    deletePost(postId, username);
-    const updatedPosts = posts.filter((post) => post.id !== postId);
-    setPosts(updatedPosts);
-  };
 
   return (
     <>
@@ -59,60 +49,58 @@ function App() {
             setAppState,
           }}
         >
-          <PostContext.Provider value={{ handleDeletePost }}>
-            <Header />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-              <Route
-                path="/profile"
-                element={
-                  <Authenticated>
-                    <Profile />
-                  </Authenticated>
-                }
-              />
-              <Route
-                path="/manage-users"
-                element={
-                  <Authenticated>
-                    <AdminPageProtect>
-                      <ManageUsers />
-                    </AdminPageProtect>
-                  </Authenticated>
-                }
-              />
-              <Route
-                path="/create-post"
-                element={
-                  <Authenticated>
-                    <CreatePost />
-                  </Authenticated>
-                }
-              />
-              <Route
-                path="/posts"
-                element={
-                  <Authenticated>
-                    <AllPosts />
-                  </Authenticated>
-                }
-              />
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/profile"
+              element={
+                <Authenticated>
+                  <Profile />
+                </Authenticated>
+              }
+            />
+            <Route
+              path="/manage-users"
+              element={
+                <Authenticated>
+                  <AdminPageProtect>
+                    <ManageUsers />
+                  </AdminPageProtect>
+                </Authenticated>
+              }
+            />
+            <Route
+              path="/create-post"
+              element={
+                <Authenticated>
+                  <CreatePost />
+                </Authenticated>
+              }
+            />
+            <Route
+              path="/posts"
+              element={
+                <Authenticated>
+                  <AllPosts />
+                </Authenticated>
+              }
+            />
 
-              <Route
-                path="/posts/:id"
-                element={
-                  <Authenticated>
-                    <PostDetailed />
-                  </Authenticated>
-                }
-              />
+            <Route
+              path="/posts/:id"
+              element={
+                <Authenticated>
+                  <PostDetailed />
+                </Authenticated>
+              }
+            />
 
-              <Route path="*" element={<h1>Not Found</h1>} />
-            </Routes>
-            {/* <Footer /> */}
-          </PostContext.Provider>
+            <Route path="*" element={<h1>Not Found</h1>} />
+          </Routes>
+          {/* <Footer /> */}
         </AppContext.Provider>
       </BrowserRouter>
     </>
