@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { getAllPosts } from '../../services/posts.service';
+import { getAllPosts } from '../../services/posts.service.js';
 import Post from '../../components/Post/Post.jsx';
 
-export default function AllPosts() {
+export default function AllPosts({ page }) {
     const [posts, setPosts] = useState([]);
-    const [sorting, setSorting] = useState('most');
 
     //For the posts to be updated in real time, we need to use the onChildChanged method from the Firebase SDK.
     useEffect(() => {
@@ -13,15 +12,30 @@ export default function AllPosts() {
         .then(setPosts);
     }, []);
 
+    console.log(page);
+
+    useEffect(() => {
+        if (page === 'home') {
+            getAllPosts()
+            .then((posts) => posts.reverse())
+            .then((posts) => setPosts(posts.slice(0, 10)));
+        }
+    },[]);
+
     const handleSort = (e) => {
-        setSorting(e.target.value);
-        console.log(e.target.value);
-        if (sorting === 'liked') {
-            setPosts(posts.sort((a, b) => b.votes - a.votes));
-        } else if (sorting === 'commented') {
-            setPosts(posts.sort((a, b) => b.commentsCount - a.commentsCount));
+        if (e.target.value === 'liked') {
+            const sortedByVotes = [...posts].sort((a, b) => b.votes - a.votes);
+            page !== 'home' ? setPosts(sortedByVotes) : setPosts(sortedByVotes.slice(0, 10));
+            console.log(posts.length);
+
+        } else if (e.target.value === 'commented') {
+            const sortedByComments = [...posts].sort((a, b) => b.commentsCount - a.commentsCount);
+            page !== 'home' ? setPosts(sortedByComments) : setPosts(sortedByComments.slice(0, 10));
+            console.log(posts.length);
         } else {
-            setPosts(posts.sort((a, b) => b.createdOn - a.createdOn));
+            const sortedByDate = [...posts].sort((a, b) => b.createdOn - a.createdOn);
+            page !== 'home' ? setPosts(sortedByDate) : setPosts(sortedByDate.slice(0, 10));
+            console.log(posts.length);
         }
     }
 

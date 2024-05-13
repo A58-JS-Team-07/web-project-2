@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button.jsx";
-import { PostContext } from "../../context/PostContext.jsx";
 import {
   upvotePost,
   downvotePost,
@@ -103,6 +102,8 @@ export default function Post({
               year: "numeric",
               month: "long",
               day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
             })}
             , comments: {post?.commentsCount ? post?.commentsCount : 0}
           </p>

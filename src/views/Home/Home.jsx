@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../context/AppContext";
-import { getAllUsersArray } from "../../services/users.service";
-import { getAllPosts } from "../../services/posts.service";
-import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
-import Post from "../../components/Post/Post";
+import { AppContext } from "../../context/AppContext.jsx";
+import { getAllUsersArray } from "../../services/users.service.js";
+import { getAllPosts } from "../../services/posts.service.js";
+import Button from "../../components/Button/Button.jsx";
+import AllPosts from "../Posts/AllPosts.jsx";
 
 function Home() {
   const { user } = useContext(AppContext);
@@ -25,8 +25,6 @@ function Home() {
 
     fetchData();
   }, []);
-
-  
 
   return (
     <div className="home">
@@ -53,24 +51,7 @@ function Home() {
         )}
       </div>
       <div className="home__all-posts">
-        <p>MUST BE ONLY 10 AND SORTING IS NOT WORKING</p>
-        <div className="sorting">
-                <label htmlFor="sorting">Sort by:</label>
-                <select name="sorting" id="sorting" >
-                    <option value="recent">Most recent </option>
-                    <option value="liked">Most liked</option>
-                    <option value="commented">Most commented</option>
-                </select>
-                {totalUsersAndPosts.posts.length > 0 ? (
-                    <div className="posts">
-                        {totalUsersAndPosts.posts.map((post) => (
-                            <Post key={post.id} post={post} variant={"readPost"} />))
-                        }
-                    </div>
-                ) : (
-                    <p>No posts found</p>
-                )}
-            </div>
+        <AllPosts page='home'/>
       </div>
     </div>
   );
