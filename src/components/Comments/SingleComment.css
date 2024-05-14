@@ -43,8 +43,8 @@
 
 .single-comment__nav-buttons {
   display: flex;
-  gap: 10px;
-  justify-content: space-between;
+  gap: 20px;
+  justify-content: flex-end;
 }
 
 .single-comment__nav-buttons.edit {
@@ -68,4 +68,8 @@
     border-radius: 10px;
     margin-top: 20px;
     font-size: 16px;
+}
+
+.user-comment__editing input:focus {
+  outline: none;
 }
