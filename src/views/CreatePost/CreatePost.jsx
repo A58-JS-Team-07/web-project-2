@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { addPost } from "../../services/posts.service.js";
 import Button from "../../components/Button/Button.jsx";
 import { AppContext } from "../../context/AppContext.jsx";
@@ -11,6 +12,7 @@ export default function CreatePost() {
     details: "",
     author: userData.username,
   });
+  const navigate = useNavigate();
 
   const updatePost = (value, key) => {
     setPost({
@@ -35,6 +37,7 @@ export default function CreatePost() {
       details: "",
     });
 
+    navigate("/posts");
     alert("Post created successfully!");
   };
 
