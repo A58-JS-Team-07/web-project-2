@@ -59,7 +59,7 @@ function SingleComment({ comment, setFollowClick }) {
       </div>
       <div className="single-comment__user-comment">
         {isEditing ? (
-          <div>
+          <div className="user-comment__editing">
             <input
               type="text"
               value={newCommentContent}
@@ -67,7 +67,7 @@ function SingleComment({ comment, setFollowClick }) {
               name="comment"
               id="comment"
             />
-            <div className="single-comment__nav-buttons">
+            <div className="single-comment__nav-buttons edit">
               <Button onClick={handleEditSave}>Save</Button>
               <Button onClick={handleCancel}>Cancel</Button>
             </div>
