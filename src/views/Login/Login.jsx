@@ -46,27 +46,29 @@ function Login() {
   return (
     <div className="login">
       <h1>Login</h1>
-      <div className="login__form-group">
-        <label htmlFor="email">Email</label>
-        <input
-          value={form.email}
-          onChange={updateForm("email")}
-          type="email"
-          id="email"
-          name="email"
-        />
+      <div className="login__form">
+        <div className="login__form-group">
+          <label htmlFor="email">Email: </label>
+          <input
+            value={form.email}
+            onChange={updateForm("email")}
+            type="email"
+            id="email"
+            name="email"
+          />
+        </div>
+        <div className="login__form-group">
+          <label htmlFor="password">Password: </label>
+          <input
+            value={form.password}
+            onChange={updateForm("password")}
+            type="password"
+            id="password"
+            name="password"
+          />
+        </div>
+        <Button onClick={login}>Login</Button>
       </div>
-      <div className="login__form-group">
-        <label htmlFor="password">Password</label>
-        <input
-          value={form.password}
-          onChange={updateForm("password")}
-          type="password"
-          id="password"
-          name="password"
-        />
-      </div>
-      <Button onClick={login}>Login</Button>
     </div>
   );
 }
