@@ -42,9 +42,9 @@ function Profile() {
     <div className="profile">
       <h1>Profile</h1>
       {isEditing ? (
-        <>
+        <div className="profile__edit">
           <div className="profile__userInfo__data">
-            <label htmlFor="firstName">First name</label>
+            <label htmlFor="firstName">First name: </label>
             <input
               value={newUserData.firstName}
               onChange={updateForm("firstName")}
@@ -54,7 +54,7 @@ function Profile() {
             />
           </div>
           <div className="profile__userInfo__data">
-            <label htmlFor="lastName">Last name</label>
+            <label htmlFor="lastName">Last name: </label>
             <input
               value={newUserData.lastName}
               onChange={updateForm("lastName")}
@@ -67,21 +67,21 @@ function Profile() {
           <Button onClick={saveChanges}>Save</Button>
           <Button onClick={() => cancelChanges()}>Cancel</Button>
           </div>
-        </>
+        </div>
       ) : (
         <>
           <div className="profile__userInfo">
             <div className="profile__userInfo__data">
-              <p>Username: {userData?.username}</p>
+              <p><strong>Username: </strong>{userData?.username}</p>
             </div>
             <div className="profile__userInfo__data">
-              <p>First name: {userData?.firstName}</p>
+              <p><strong>First name: </strong>{userData?.firstName}</p>
             </div>
             <div className="profile__userInfo__data">
-              <p>Last name: {userData?.lastName}</p>
+              <p><strong>Last name: </strong>{userData?.lastName}</p>
             </div>
             <div className="profile__userInfo__data">
-              <p>Email: {userData?.email}</p>
+              <p><strong>Email: </strong>{userData?.email}</p>
             </div>
             <div className="profile__userInfo__btn-edit">
             <Button className="profile__btn-edit" onClick={() => setIsEditing(true)}>Edit</Button>
