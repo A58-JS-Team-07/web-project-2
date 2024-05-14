@@ -9,7 +9,6 @@ function AllComments({ postId, followClick, setFollowClick }) {
   useEffect(() => {
     getAllPostComments(postId).then((comments) => {
       setComments(comments);
-      console.log("MARKER: ", comments);
     });
   }, [postId, followClick]);
 

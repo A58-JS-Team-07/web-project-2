@@ -15,7 +15,6 @@ export default function PostDetailed() {
   const [followClick, setFollowClick] = useState(false);
 
   useEffect(() => {
-    console.log(id);
     getPostById(id).then((post) => setPost(post));
     setPost({
       ...post,
@@ -53,7 +52,7 @@ export default function PostDetailed() {
           setFollowClick={setFollowClick}
         />
       )}
-      {isCommenting && <AddComment postId={id} setFollowClick={setFollowClick}/>}
+      {isCommenting && <AddComment postId={id} setFollowClick={setFollowClick} followClick={followClick}/>}
       <AllComments
         postId={id}
         followClick={followClick}

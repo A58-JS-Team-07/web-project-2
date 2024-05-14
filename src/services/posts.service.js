@@ -106,7 +106,7 @@ export const upvotePost = async (postId, handle) => {
         post.downvotedBy?.[handle] ? post.downvotedBy[handle] = null : null;
     }
 
-    update(postRef, post);
+    await update(postRef, post);
 };
 
 export const downvotePost = async (postId, handle) => {
@@ -126,7 +126,7 @@ export const downvotePost = async (postId, handle) => {
         post.upvotedBy?.[handle] ? post.upvotedBy[handle] = null : null;
     }
     
-    update(postRef, post);
+    await update(postRef, post);
 }
 
 export const getAllPostComments = async (postId) => {

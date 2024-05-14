@@ -7,6 +7,7 @@ import { db } from "../../config/firebase-config.js";
 
 export default function AllPosts({ page }) {
   const [posts, setPosts] = useState([]);
+  const [followClickAll, setFollowClickAll] = useState(false);
 
   //For the posts to be updated in real time, we need to use the onChildChanged method from the Firebase SDK.
   useEffect(() => {
@@ -16,39 +17,45 @@ export default function AllPosts({ page }) {
   }, []);
 
   useEffect(() => {
-    const unsubscribe = onChildChanged(ref(db, "posts"), (snapshot) => {
-      const value = snapshot.val();
-      setPosts((posts) =>
-        posts.map((p) => {
-          if (p.author === value.author && p.details === value.details) {
-            return {
-              ...p,
-              ...value,
-            };
-          } else {
-            return p;
-          }
-        })
-      );
-    });
+    getAllPosts()
+      .then((posts) => posts.reverse())
+      .then(setPosts);
+  }, [followClickAll]);
 
-    // Cleanup function
-    return () => unsubscribe();
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = onChildChanged(ref(db, "posts"), (snapshot) => {
+  //     const value = snapshot.val();
+  //     setPosts((posts) =>
+  //       posts.map((p) => {
+  //         if (p.author === value.author && p.details === value.details) {
+  //           return {
+  //             ...p,
+  //             ...value,
+  //           };
+  //         } else {
+  //           return p;
+  //         }
+  //       })
+  //     );
+  //   });
 
-  useEffect(() => {
-    const unsubscribe = onChildRemoved(ref(db, "posts"), (snapshot) => {
-      const value = snapshot.val();
-      setPosts((posts) =>
-        posts.filter(
-          (p) => !(p.author === value.author && p.details === value.details)
-        )
-      );
-    });
+  //   // Cleanup function
+  //   return () => unsubscribe();
+  // }, []);
 
-    // Cleanup function
-    return () => unsubscribe();
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = onChildRemoved(ref(db, "posts"), (snapshot) => {
+  //     const value = snapshot.val();
+  //     setPosts((posts) =>
+  //       posts.filter(
+  //         (p) => !(p.author === value.author && p.details === value.details)
+  //       )
+  //     );
+  //   });
+
+  //   // Cleanup function
+  //   return () => unsubscribe();
+  // }, []);
 
   const handleSort = (e) => {
     if (e.target.value === "liked") {
@@ -56,7 +63,7 @@ export default function AllPosts({ page }) {
       page !== "home"
         ? setPosts(sortedByVotes)
         : setPosts(sortedByVotes.slice(0, 10));
-      console.log(posts.length);
+
     } else if (e.target.value === "commented") {
       const sortedByComments = [...posts].sort(
         (a, b) => b.commentsCount - a.commentsCount
@@ -64,13 +71,13 @@ export default function AllPosts({ page }) {
       page !== "home"
         ? setPosts(sortedByComments)
         : setPosts(sortedByComments.slice(0, 10));
-      console.log(posts.length);
+
     } else {
       const sortedByDate = [...posts].sort((a, b) => b.createdOn - a.createdOn);
       page !== "home"
         ? setPosts(sortedByDate)
         : setPosts(sortedByDate.slice(0, 10));
-      console.log(posts.length);
+
     }
   };
 
@@ -95,7 +102,7 @@ export default function AllPosts({ page }) {
   return (
     <div>
       {page !== "home" && <h1>All Posts</h1>}
-      {console.log("post rerender")}
+
       <div className="sorting">
         <div className="sorting-dropdown">
           <label htmlFor="sorting">Sort by:</label>
@@ -108,7 +115,7 @@ export default function AllPosts({ page }) {
         {posts.length > 0 ? (
           <div className="posts">
             {posts.map((post) => (
-              <Post key={post.id} post={post} variant={"readPost"} />
+              <Post key={post.id} post={post} variant={"readPost"} setFollowClickAll={setFollowClickAll} followClickAll={followClickAll} />
             ))}
           </div>
         ) : (

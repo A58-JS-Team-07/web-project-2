@@ -11,6 +11,7 @@ import { AppContext } from "../../context/AppContext.jsx";
 import { deletePost } from "../../services/posts.service.js";
 import DisplayForAdmin from "../../hoc/AdminProtect/DisplayForAdmin.jsx";
 import HideForBanUser from "../../hoc/BanProtect/HideForBanUser.jsx";
+import { getPostById } from "../../services/posts.service.js";
 import { set } from "firebase/database";
 
 export default function Post({
@@ -18,7 +19,10 @@ export default function Post({
   variant,
   handleAddComment,
   addCommentBtnName,
-  setFollowClick,
+  setFollowClick = () => {},
+  setFollowClickAll = () => {},
+  followClick,
+  followClickAll,
   page,
 }) {
   const navigate = useNavigate();
@@ -30,11 +34,17 @@ export default function Post({
 
   const upvoteCurrPost = () => {
     upvotePost(post?.id, user?.uid);
+    if (isUpvoted) {
+      setIsDownvoted(false);
+      setIsUpvoted(false);
+    }
     setFollowClick((prev) => !prev);
+    setFollowClickAll((prev) => !prev);
   };
   const downvoteCurrPost = () => {
     downvotePost(post?.id, user?.uid);
     setFollowClick((prev) => !prev);
+    setFollowClickAll((prev) => !prev);
   };
   const deleteCurrPost = () => deletePost(post?.id, post?.author);
 
@@ -43,16 +53,18 @@ export default function Post({
 
   //We need this useEffect to be able to show the current post in the edit form when we first click the edit button
   useEffect(() => {
-    setUpdatedPost({ ...post });
-    const upvoted = post?.upvotedBy
-      ? Object.keys(post?.upvotedBy).some((id) => id === user?.uid)
-      : false;
-    const downvoted = post?.downvotedBy
-      ? Object.keys(post?.downvotedBy).some((id) => id === user?.uid)
-      : false;
-    setIsUpvoted(upvoted);
-    setIsDownvoted(downvoted);
-  }, [post]);
+    getPostById(post?.id).then((post) => {
+      setUpdatedPost({ ...post });
+      const upvoted = post?.upvotedBy
+        ? Object.keys(post?.upvotedBy).some((id) => id === user?.uid)
+        : false;
+      const downvoted = post?.downvotedBy
+        ? Object.keys(post?.downvotedBy).some((id) => id === user?.uid)
+        : false;
+      setIsUpvoted(upvoted);
+      setIsDownvoted(downvoted);
+    });
+  }, [post, followClick, followClickAll]);
 
   const handleEditSave = async () => {
     if (updatedPost.title.length < 16 || updatedPost.title.length > 64) {
@@ -78,6 +90,8 @@ export default function Post({
       await deleteCurrPost();
       navigate(`/posts`);
     }
+    setFollowClickAll((prev) => !prev);
+    setFollowClick((prev) => !prev);
   };
 
   const updateForm = (prop) => (e) => {
@@ -95,12 +109,9 @@ export default function Post({
     }
   };
 
-  function getCommentsCount() {
-    return post.comments ? Object.keys(post.comments).length : 0;
-  }
-
   return (
     <div className="post">
+      {console.log("LIKE RERENDER")}
       {isEditing && variant === "addComment" ? (
         <div className="post__editing">
           <label htmlFor="title">Post title</label>
@@ -180,7 +191,7 @@ export default function Post({
                     }
                   </span>
                 </HideForBanUser>
-                <span>{post?.votes}</span>
+                <span>{updatedPost?.votes}</span>
                 <HideForBanUser>
                   <span
                     className="post__voting__downvote"

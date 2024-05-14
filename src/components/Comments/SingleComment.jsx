@@ -37,16 +37,18 @@ function SingleComment({ comment, setFollowClick }) {
   };
 
   const handleDelete = async () => {
-    await deleteComment(comment.postId, comment.id, comment.username);
-    setFollowClick((prev) => !prev);
-    console.log("Delete comment");
+    if (window.confirm("Are you sure you want to delete this comment?")) {
+      await deleteComment(comment.postId, comment.id, comment.username);
+      setFollowClick((prev) => !prev);
+    }
   };
 
   return (
     <div className="single-comment">
       <div className="single-comment__user-info">
         <span>by {comment.username} | </span>
-        <span>📅 {" "}
+        <span>
+          📅{" "}
           {new Date(comment.createdOn).toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
