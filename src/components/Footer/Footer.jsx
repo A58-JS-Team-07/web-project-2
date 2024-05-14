@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer>
       <div id="telerik-project-info">
-        <p>Team Project: Single page app based on Giphy API</p>
+        <p>Team Project 2: SPA forum for in-home DIY renovation </p>
         <p>
           Project Developed by: Bilyana Karcheva, Atanas Geov and Ivelin Banchev
         </p>

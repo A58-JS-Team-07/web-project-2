@@ -1,0 +1,22 @@
+.sorting-dropdown {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  background: var(--bg-ldark);
+  padding: 20px 10px;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.sorting-dropdown select {
+  background: var(--bg-ldark);
+  color: var(--white);
+  border: 1px solid var(--white);
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: 600;
+}

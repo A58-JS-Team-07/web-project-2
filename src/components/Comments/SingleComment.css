@@ -46,3 +46,26 @@
   gap: 10px;
   justify-content: space-between;
 }
+
+.single-comment__nav-buttons.edit {
+  justify-content: flex-start;
+  text-decoration: none;
+}
+
+.user-comment__editing {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.user-comment__editing input {
+  margin-bottom: 10px;
+    padding: 15px;
+    width: 98%;
+    background-color: var(--bg-eldark);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 16px;
+}

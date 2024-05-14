@@ -102,26 +102,26 @@ export default function Post({
   return (
     <div className="post">
       {isEditing && variant === "addComment" ? (
-        <div>
+        <div className="post__editing">
           <label htmlFor="title">Post title</label>
           <input
             type="text"
+            className="post__editing__title"
             value={updatedPost.title}
             onChange={updateForm("title")}
             placeholder="Post title"
           />
-          <br />
-          <br />
           <label htmlFor="details">Post description</label>
           <textarea
+            className="post__editing__textarea"
             value={updatedPost.details}
             onChange={updateForm("details")}
             placeholder="Post description"
           />
-          <br />
-          <br />
-          <Button onClick={handleEditSave}>Save</Button>
-          <Button onClick={handleEditCancel}>Cancel</Button>
+          <div className="post__editing__actions">
+            <Button onClick={handleEditSave}>Save</Button>
+            <Button onClick={handleEditCancel}>Cancel</Button>
+          </div>
         </div>
       ) : (
         <div>
