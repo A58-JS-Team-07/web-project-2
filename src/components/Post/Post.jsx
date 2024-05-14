@@ -111,7 +111,6 @@ export default function Post({
 
   return (
     <div className="post">
-      {console.log("LIKE RERENDER")}
       {isEditing && variant === "addComment" ? (
         <div className="post__editing">
           <label htmlFor="title">Post title</label>
