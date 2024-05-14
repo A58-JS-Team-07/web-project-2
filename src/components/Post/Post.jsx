@@ -190,7 +190,7 @@ export default function Post({
                     }
                   </span>
                 </HideForBanUser>
-                <span>{updatedPost?.votes}</span>
+                <span>Votes: {updatedPost?.votes}</span>
                 <HideForBanUser>
                   <span
                     className="post__voting__downvote"
