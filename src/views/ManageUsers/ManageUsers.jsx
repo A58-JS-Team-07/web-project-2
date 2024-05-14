@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { useContext } from "react";
 import { useSearchParams } from "react-router-dom";
+import "./ManageUsers.css";
 
 //WHY: Why does it re-rendering 3 times?
 
@@ -66,64 +67,69 @@ function ManageUsers() {
   }
 
   return (
-    <div>
-      <h1>Manage Users</h1>
+    <div className="user-management__page">
+      <h1 className="manage-users__header">Manage Users</h1>
       {console.log('re-dendering')}
-      <label htmlFor="search">Search</label>
-      <input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search users by username or email"
-        name="search"
-        type="text"
-        id="search"
-      />
-      {users
-        .filter((user) => user.uid !== userData.uid)
-        .map((user) => {
-          return (
-            <div className="user-card" key={user.uid}>
-              <div className="user-card__info">
-                <div className="user-card__info--left">
-                  {/*TODO: Add condition for user with avatar*/}
-                  <ProfileAvatar />
+      <div className="search-bar">
+        <label htmlFor="search">Search: </label>
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search users by username or email"
+          name="search"
+          type="text"
+          id="search"
+        />
+      </div>
+      <div className="user-list">
+        {users
+          .filter((user) => user.uid !== userData.uid)
+          .map((user) => {
+            return (
+              <div className="user-card" key={user.uid}>
+                <div className="user-card__info">
+                  <div className="user-card__info--left">
+                    {/*TODO: Add condition for user with avatar*/}
+                    <ProfileAvatar />
+                  </div>
+                  <div className="user-card__info--right">
+                    <span className="user-card__info__username">
+                      <strong>{user.username}</strong>
+                    </span>
+                    <span className="user-card__info__email">{user.email}</span>
+                  </div>
                 </div>
-                <div className="user-card__info--right">
-                  <span className="user-card__info__username">
-                    {user.username}
-                  </span>
-                  <span className="user-card__info__email">{user.email}</span>
+                <div className="user-card__actions">
+                  {user.isAdmin ? (
+                    <Button
+                      onClick={() => handleMakeAdmin(user)}
+                      variant="danger"
+                    >
+                      Remove admin
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => handleMakeAdmin(user)}
+                      variant="primary"
+                    >
+                      Make admin
+                    </Button>
+                  )}
+                  {user.isBanned ? (
+                    <Button onClick={() => handleBanUser(user)} variant="danger">
+                      Unban
+                    </Button>
+                  ) : (
+                    <Button onClick={() => handleBanUser(user)} variant="primary">
+                      Ban
+                    </Button>
+                  )}
                 </div>
               </div>
-              <div className="user-card__actions">
-                {user.isAdmin ? (
-                  <Button
-                    onClick={() => handleMakeAdmin(user)}
-                    variant="danger"
-                  >
-                    Remove admin
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={() => handleMakeAdmin(user)}
-                    variant="primary"
-                  >
-                    Make admin
-                  </Button>
-                )}
-                {user.isBanned ? (
-                  <Button onClick={() => handleBanUser(user)} variant="danger">
-                    Unban
-                  </Button>
-                ) : (
-                  <Button onClick={() => handleBanUser(user)} variant="primary">
-                    Ban
-                  </Button>
-                )}
-              </div>
-            </div>
-          );
-        })}
+
+            );
+          })}
+      </div>
     </div>
   );
 }

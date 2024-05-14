@@ -1,0 +1,83 @@
+.search-bar {
+    margin-bottom: 25px;
+    gap: 10px;
+}
+
+.search-bar input {
+    width: 300px;
+    height: 30px;
+    padding: 5px;
+    font-size: large;
+    background-color: var(--bg-eldark);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.search-bar label {
+    font-size: 1.2rem;
+}
+
+/* .user-management__page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+} */
+
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: var(--bg-ldark);
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px;
+    background-color: var(--bg-eldark);
+    border-radius: 10px;
+}
+
+.user-card__info__name {
+    display: inline;
+}
+
+.user-card__actions button {
+    margin: 8px;
+}
+
+.user-card__actions {
+    margin: 8px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.user-card__info--right { 
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: 50px;
+}
+
+.user-card__info--left {
+    display: flex;
+    flex-direction: column;
+    float: left;
+    gap: 5px;
+}
+
+.user-card__info__email {
+    font-size: 1rem;
+}
