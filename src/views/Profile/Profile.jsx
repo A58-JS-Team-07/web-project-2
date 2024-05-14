@@ -10,7 +10,7 @@ function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [newUserData, setNewUserData] = useState({ ...userData });
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   console.log(userData);
 
@@ -26,7 +26,7 @@ function Profile() {
 
     if (newUserData.firstName.length < 4 || newUserData.firstName.length > 32 || newUserData.lastName.length < 4 || newUserData.lastName.length > 32) {
       alert("First and last name must be between 4 and 32 characters");
-      return;    
+      return;
     }
 
     setIsEditing(false);
@@ -63,24 +63,30 @@ function Profile() {
               name="lastName"
             />
           </div>
+          <div className="profile__userInfo__btn">
           <Button onClick={saveChanges}>Save</Button>
           <Button onClick={() => cancelChanges()}>Cancel</Button>
+          </div>
         </>
       ) : (
         <>
-          <div className="profile__userInfo__data">
-            <p>Username: {userData?.username}</p>
+          <div className="profile__userInfo">
+            <div className="profile__userInfo__data">
+              <p>Username: {userData?.username}</p>
+            </div>
+            <div className="profile__userInfo__data">
+              <p>First name: {userData?.firstName}</p>
+            </div>
+            <div className="profile__userInfo__data">
+              <p>Last name: {userData?.lastName}</p>
+            </div>
+            <div className="profile__userInfo__data">
+              <p>Email: {userData?.email}</p>
+            </div>
+            <div className="profile__userInfo__btn-edit">
+            <Button className="profile__btn-edit" onClick={() => setIsEditing(true)}>Edit</Button>
+            </div>
           </div>
-          <div className="profile__userInfo__data">
-            <p>First name: {userData?.firstName}</p>
-          </div>
-          <div className="profile__userInfo__data">
-            <p>Last name: {userData?.lastName}</p>
-          </div>
-          <div className="profile__userInfo__data">
-            <p>Email: {userData?.email}</p>
-          </div>
-          <Button onClick={() => setIsEditing(true)}>Edit</Button>
         </>
       )}
     </div>

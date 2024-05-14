@@ -1,0 +1,33 @@
+.profile__userInfo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 1.2rem;
+}
+
+/* .profile__userInfo {
+    margin-bottom: 30px;
+} */
+
+.profile__userInfo__data__label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+
+.profile__userInfo__btn-edit {
+    margin-top: 15px;
+}
+
+
+.profile__userInfo__data {
+    display: flex;
+    margin-bottom: 14px;
+    padding: 5px;
+    color: #fff;
+}
+
+.profile__userInfo__btn button{
+    margin: 8px;
+}
