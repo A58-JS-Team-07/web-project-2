@@ -1,24 +1,57 @@
+/* Make the input element with class .create-post__title__input wider */
+.create-post__title {
+    width: 100%;
+}
+
+.create-post__title label {
+    font-size: 18px;
+}
+
 .create-post__title__input {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 10px;
-    padding: 10px;
-    width: 100%;
+    padding: 15px;
+    width: 98%;
     background-color: var(--bg-eldark);
     color: #fff;
+    border: none;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* Make the textarea element with class .create-post__description wider */
+/* How to make backroubnd color of the textarea element with class .create-post__description darker */
+.create-post__description {
+    width: 100%;
+}
+
+.create-post__description label {
+    font-size: 18px;
 }
 
 .create-post__description textarea{
     resize: both;
-    font-size: 1rem;
+    font-size: 18px;
     font-weight: 400;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 20px;
     width: 100%;
     height: 200px;
     background-color: var(--bg-eldark);
     color: #fff;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
 
+}
+
+.create-post__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: baseline;
+    margin: 30px 0;
 }
 
 .create-post__title__input:focus {

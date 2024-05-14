@@ -19,14 +19,14 @@ export default function Post({
   handleAddComment,
   addCommentBtnName,
   setFollowClick,
-  page
+  page,
 }) {
   const navigate = useNavigate();
   const { user, userData } = useContext(AppContext);
   const [isEditing, setIsEditing] = useState(false);
   const [updatedPost, setUpdatedPost] = useState({ ...post });
-  const [isUpvoted, setIsUpvoted] = useState('false');
-  const [isDownvoted, setIsDownvoted] = useState('false');
+  const [isUpvoted, setIsUpvoted] = useState("false");
+  const [isDownvoted, setIsDownvoted] = useState("false");
 
   const upvoteCurrPost = () => {
     upvotePost(post?.id, user?.uid);
@@ -44,8 +44,12 @@ export default function Post({
   //We need this useEffect to be able to show the current post in the edit form when we first click the edit button
   useEffect(() => {
     setUpdatedPost({ ...post });
-    const upvoted = post?.upvotedBy ? Object.keys(post?.upvotedBy).some(id => id === user?.uid) : false;
-    const downvoted = post?.downvotedBy ? Object.keys(post?.downvotedBy).some(id => id === user?.uid): false;
+    const upvoted = post?.upvotedBy
+      ? Object.keys(post?.upvotedBy).some((id) => id === user?.uid)
+      : false;
+    const downvoted = post?.downvotedBy
+      ? Object.keys(post?.downvotedBy).some((id) => id === user?.uid)
+      : false;
     setIsUpvoted(upvoted);
     setIsDownvoted(downvoted);
   }, [post]);
@@ -84,12 +88,12 @@ export default function Post({
   };
 
   const handleDetailsLength = (postDetail) => {
-    if (page !== 'detailedPage' && postDetail?.length > 100) {
+    if (page !== "detailedPage" && postDetail?.length > 100) {
       return postDetail.slice(0, 100) + "[...]";
     } else {
       return postDetail;
     }
-  }
+  };
 
   function getCommentsCount() {
     return post.comments ? Object.keys(post.comments).length : 0;
@@ -133,7 +137,9 @@ export default function Post({
             | 💬 {post?.commentsCount ? post?.commentsCount : 0}
           </p>
           <h2 className="post__title">{post?.title}</h2>
-          <p className="post__description">{handleDetailsLength(post?.details)}</p>
+          <p className="post__description">
+            {handleDetailsLength(post?.details)}
+          </p>
           <div className="post__actions">
             <div className="post__actions__left">
               {variant === "addComment" ? (
@@ -145,7 +151,17 @@ export default function Post({
                   Read Post
                 </Button>
               )}
-              <div className={"post__voting" + " " + "upvoted-" + isUpvoted + " " + "downvoted-" + isDownvoted}>
+              <div
+                className={
+                  "post__voting" +
+                  " " +
+                  "upvoted-" +
+                  isUpvoted +
+                  " " +
+                  "downvoted-" +
+                  isDownvoted
+                }
+              >
                 <HideForBanUser>
                   <span
                     className="post__voting__upvote"
@@ -184,23 +200,40 @@ export default function Post({
                 </HideForBanUser>
               </div>
             </div>
-            {variant === "addComment" &&
-              userData?.username === post?.author && (
+            <div className="post__actions__right">
+              {variant === "addComment" &&
+                userData?.username === post?.author && (
+                  <HideForBanUser>
+                    <span
+                      className="post__edit-btn"
+                      onClick={() => setIsEditing(true)}
+                    >
+                      Edit
+                    </span>
+                  </HideForBanUser>
+                )}
+
+              {userData?.isAdmin && (
+                <DisplayForAdmin>
+                  <span
+                    className="post__delete-btn"
+                    onClick={handleDeleteButton}
+                  >
+                    Delete
+                  </span>
+                </DisplayForAdmin>
+              )}
+              {userData?.username === post?.author && !userData?.isAdmin && (
                 <HideForBanUser>
-                  <Button onClick={() => setIsEditing(true)}>Edit</Button>
+                  <span
+                    className="post__delete-btn"
+                    onClick={handleDeleteButton}
+                  >
+                    Delete
+                  </span>
                 </HideForBanUser>
               )}
-
-            {userData?.isAdmin && (
-              <DisplayForAdmin>
-                <Button onClick={handleDeleteButton}>Delete</Button>
-              </DisplayForAdmin>
-            )}
-            {userData?.username === post?.author && !userData?.isAdmin && (
-              <HideForBanUser>
-                <Button onClick={handleDeleteButton}>Delete</Button>
-              </HideForBanUser>
-            )}
+            </div>
           </div>
         </div>
       )}

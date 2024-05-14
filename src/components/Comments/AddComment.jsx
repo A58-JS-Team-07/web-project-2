@@ -1,3 +1,4 @@
+import "./AddComment.css";
 import { useState, useContext } from "react";
 import { addComment } from "../../services/posts.service";
 import { AppContext } from "../../context/AppContext";

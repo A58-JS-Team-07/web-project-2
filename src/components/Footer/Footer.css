@@ -1,0 +1,18 @@
+footer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  background-color: var(--bg-ldark);
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+#telerik-project-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#copyright {
+  text-align: center;
+}
