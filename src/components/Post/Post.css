@@ -20,6 +20,13 @@
   gap: 20px;
 }
 
+.post__actions__right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
 .post__voting {
   display: flex;
   gap: 10px;
@@ -37,4 +44,51 @@
 
 .post__voting.downvoted-true {
   background-color: #d9534f;
+}
+
+.post__edit-btn {
+  background-color: var(--bg-eldark);
+  color: var(--text-light);
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.post__edit-btn:hover {
+  background-color: var(--accent);
+}
+
+.post__delete-btn {
+  color: darkred;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.post__delete-btn:hover {
+  color: red;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.post__title {
+  font-size: 30px;
+}
+.post__description {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.post__meta {
+  padding-bottom: 25px;
+  border-bottom: 1px solid var(--grey);
+  text-transform: lowercase;
+}
+
+.post__actions {
+  padding-top: 30px;
+  margin-top: 30px;
+  border-top: 1px solid var(--grey);
 }

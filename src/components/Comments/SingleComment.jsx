@@ -45,12 +45,14 @@ function SingleComment({ comment, setFollowClick }) {
   return (
     <div className="single-comment">
       <div className="single-comment__user-info">
-        <span>by {comment.username}</span>
-        <span>
+        <span>by {comment.username} | </span>
+        <span>📅 {" "}
           {new Date(comment.createdOn).toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
             day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
           })}
         </span>
         <span className="quotes">"</span>
