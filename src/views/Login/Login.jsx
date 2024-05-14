@@ -48,7 +48,7 @@ function Login() {
       <h1>Login</h1>
       <div className="login__form">
         <div className="login__form-group">
-          <label htmlFor="email">Email: </label>
+          <label htmlFor="email">Email</label>
           <input
             value={form.email}
             onChange={updateForm("email")}
@@ -58,7 +58,7 @@ function Login() {
           />
         </div>
         <div className="login__form-group">
-          <label htmlFor="password">Password: </label>
+          <label htmlFor="password">Password</label>
           <input
             value={form.password}
             onChange={updateForm("password")}
