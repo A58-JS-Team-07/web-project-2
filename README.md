@@ -80,3 +80,9 @@ Admin users have superuser access, enabling them to ban or promote other users t
 ![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/76cd8c44-268c-409b-8d58-ff1bf1ed065b)
 
 
+### Banned
+
+The banned user receives a ban message at the top of the app header and can only view posts and post details but cannot interact with the content of the platform.
+
+![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/5e942d20-3870-4818-be83-d8459813836b)
+
