@@ -2,18 +2,19 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
+import { FIREBASE_API_KEY, FIREBASE_DATABASE_URL } from '../common/constants.js';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDF0YuqYhYtdRwMdljrTALYsP5iCmEi-ns",
-  authDomain: "telerik-project-2.firebaseapp.com",
-  projectId: "telerik-project-2",
-  storageBucket: "telerik-project-2.appspot.com",
-  messagingSenderId: "266753102156",
-  appId: "1:266753102156:web:9789fe78a60389bc077fe9",
-  databaseURL: "https://telerik-project-2-default-rtdb.europe-west1.firebasedatabase.app/"
+  apiKey: FIREBASE_API_KEY,
+  authDomain: "telerik-project-2-private.firebaseapp.com",
+  projectId: "telerik-project-2-private",
+  storageBucket: "telerik-project-2-private.appspot.com",
+  messagingSenderId: "74812023755",
+  appId: "1:74812023755:web:9d127e2e0de39ed214cc4e",
+  databaseURL: FIREBASE_DATABASE_URL,
 };
 
 // Initialize Firebase
