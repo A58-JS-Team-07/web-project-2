@@ -39,7 +39,7 @@ The app is divided into private and public parts. Non-registered users can acces
 The homepage provides a warm welcome message, showcasing the essence of our site. It features the top 10 posts filtered by different criteria to highlight popular and recent discussions. Additionally, it presents key app statistics to give you an overview of our community and its activities.<br><br>
 ![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/a9a40c07-66e8-4d77-94b7-b17c3c9a5580)
 
-### Login and Register pages
+### Login and Register
 
 All visitors can log in to their existing profiles or create a new one on the platform. We ensure all inputs are validated to maintain data accuracy and security.
 
@@ -47,17 +47,36 @@ All visitors can log in to their existing profiles or create a new one on the pl
 
 ![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/081a6a98-49d7-4d8c-b2d7-0e09efbc4584)
 
-### All Posts page
+### All Posts
 
 All Posts page is reserved only for logged visitors where they can view a listing of all posts in the platform. Each post has upvote and downvote functionality as well as 'Read Post' option that leads to the detailed page. Additionally, the page offers filtering options where users can filter the posts by most recent, liked or commented posts.
 
 ![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/8b4ca5dd-b32d-4b24-b3f0-5c977ae366bd)
 
-### Post Details page
+### Post Details
 
 Post Detailed page contains the full information about the post including the description and the post's comments. In this page the user has the option to delete or edit the post or comments that he created. Similarly to the All Posts page you can also upvote and downvote each post.
 
 ![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/71a6f0e1-c132-4801-aa45-437570950f7e)
 
+### Create Post
+
+Users can create posts by providing a title and a detailed description. Validations are in place to ensure the accuracy and integrity of the submitted data.
+
+![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/93b80587-c828-43f3-bee5-9956025b1f1b)
+
+
+### Profile
+
+Each user has a profile containing their personal information. Users can edit their first and last names if they choose to.
+
+![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/1edd75b3-764c-49ef-85c1-3a26b7869d32)
+
+
+### Admin
+
+Admin users have superuser access, enabling them to ban or promote other users to admin, as well as edit or delete posts created by others.
+
+![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/76cd8c44-268c-409b-8d58-ff1bf1ed065b)
 
 
