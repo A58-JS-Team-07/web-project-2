@@ -57,6 +57,7 @@ All Posts page is reserved only for logged visitors where they can view a listin
 
 Post Detailed page contains the full information about the post including the description and the post's comments. In this page the user has the option to delete or edit the post or comments that he created. Similarly to the All Posts page you can also upvote and downvote each post.
 
-![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/81ad8b52-c5ce-43c4-967c-6006e2f28fbe)
+![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/71a6f0e1-c132-4801-aa45-437570950f7e)
+
 
 
