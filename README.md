@@ -49,8 +49,14 @@ All visitors can log in to their existing profiles or create a new one on the pl
 
 ### All Posts page
 
-All Posts page is reserved only for logged visitors. Additionally, the page offers filtering options where users can filter the posts by most recent, liked or commented posts.
+All Posts page is reserved only for logged visitors where they can view a listing of all posts in the platform. Each post has upvote and downvote functionality as well as 'Read Post' option that leads to the detailed page. Additionally, the page offers filtering options where users can filter the posts by most recent, liked or commented posts.
 
-![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/3e25cbb9-74f5-4c67-985a-0b007340aca0)
+![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/8b4ca5dd-b32d-4b24-b3f0-5c977ae366bd)
+
+### Post Details page
+
+Post Detailed page contains the full information about the post including the description and the post's comments. In this page the user has the option to delete or edit the post or comments that he created. Similarly to the All Posts page you can also upvote and downvote each post.
+
+![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/81ad8b52-c5ce-43c4-967c-6006e2f28fbe)
 
 
