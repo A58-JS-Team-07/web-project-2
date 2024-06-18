@@ -36,7 +36,8 @@ git<br>
 The app is divided into private and public parts. Non-registered users can access only the public part: Homepage, Top 10 posts, App statistics and Login/Register. The private part, which includes the rest of the app's features, is accessible only after logging in.
 
 ### Homepage
-The homepage provides a warm welcome message, showcasing the essence of our site. It features the top 10 posts filtered by different criteria to highlight popular and recent discussions. Additionally, it presents key app statistics to give you an overview of our community and its activities.
-![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/27cfdcfc-bfe2-4d8e-b497-348386870171)
+The homepage provides a warm welcome message, showcasing the essence of our site. It features the top 10 posts filtered by different criteria to highlight popular and recent discussions. Additionally, it presents key app statistics to give you an overview of our community and its activities.<br>
+![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/d51495d1-a624-4a35-bb46-bbd067989443)
+
 
 
