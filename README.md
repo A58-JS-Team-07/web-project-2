@@ -39,13 +39,18 @@ The app is divided into private and public parts. Non-registered users can acces
 The homepage provides a warm welcome message, showcasing the essence of our site. It features the top 10 posts filtered by different criteria to highlight popular and recent discussions. Additionally, it presents key app statistics to give you an overview of our community and its activities.<br><br>
 ![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/a9a40c07-66e8-4d77-94b7-b17c3c9a5580)
 
-### Login and Register
+### Login and Register pages
 
-All visitors can log in to an existing profile or create a new one on the platform. All inputs are validated to ensure data correctness.
+All visitors can log in to their existing profiles or create a new one on the platform. We ensure all inputs are validated to maintain data accuracy and security.
 
 ![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/17cd8324-16d5-4f24-bb98-157575554bbc)
 
 ![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/081a6a98-49d7-4d8c-b2d7-0e09efbc4584)
 
+### All Posts page
+
+All Posts page is reserved only for logged visitors. Additionally, the page offers filtering options where users can filter the posts by most recent, liked or commented posts.
+
+![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/3e25cbb9-74f5-4c67-985a-0b007340aca0)
 
 
