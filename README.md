@@ -1,4 +1,4 @@
-# web-project-2: Home DIY Forum
+# Web Project 2: Home DIY Forum
 
 ## Description
 
@@ -38,6 +38,14 @@ The app is divided into private and public parts. Non-registered users can acces
 ### Homepage
 The homepage provides a warm welcome message, showcasing the essence of our site. It features the top 10 posts filtered by different criteria to highlight popular and recent discussions. Additionally, it presents key app statistics to give you an overview of our community and its activities.<br><br>
 ![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/a9a40c07-66e8-4d77-94b7-b17c3c9a5580)
+
+### Login and Register
+
+All visitors can log in to an existing profile or create a new one on the platform. All inputs are validated to ensure data correctness.
+
+![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/17cd8324-16d5-4f24-bb98-157575554bbc)
+
+![image](https://github.com/A58-JS-Team-07/web-project-2/assets/77446631/081a6a98-49d7-4d8c-b2d7-0e09efbc4584)
 
 
 
