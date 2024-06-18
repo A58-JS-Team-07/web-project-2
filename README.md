@@ -23,8 +23,8 @@ Ivelin Banchev - [@banch3v](https://github.com/banch3v/)<br>
 
 JavaScript<br>
 React<br>
-HTML
-CSS
+HTML<br>
+CSS<br>
 Firebase<br>
 ESLint<br>
 git<br>
